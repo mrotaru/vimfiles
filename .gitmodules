@@ -1,0 +1,51 @@
+[submodule "bundle/fugitive"]
+	path = bundle/fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule "bundle/Align"]
+	path = bundle/Align
+	url = git@github.com:vim-scripts/Align.vim.git
+[submodule "bundle/EnhancedCommentify"]
+	path = bundle/EnhancedCommentify
+	url = git@github.com:hrp/EnhancedCommentify.git
+[submodule "bundle/Trac"]
+	path = bundle/Trac
+	url = git@github.com:mihai-rotaru/Trac.vim.git
+[submodule "bundle/VisIncr"]
+	path = bundle/VisIncr
+	url = git@github.com:vim-scripts/VisIncr.git
+[submodule "bundle/chapa"]
+	path = bundle/chapa
+	url = git@github.com:alfredodeza/chapa.vim.git
+[submodule "bundle/headerguard"]
+	path = bundle/headerguard
+	url = git@github.com:vim-scripts/headerguard.vim.git
+[submodule "bundle/taglist"]
+	path = bundle/taglist
+	url = git@github.com:vim-scripts/taglist.vim.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule "bundle/marvim"]
+	path = bundle/marvim
+	url = git@github.com:vim-scripts/marvim.git
+[submodule "bundle/markdown"]
+	path = bundle/markdown
+	url = git@github.com:tpope/vim-markdown.git
+[submodule "bundle/vimwiki"]
+	path = bundle/vimwiki
+	url = git@github.com:mihai-rotaru/vimwiki.git
+[submodule "bundle/The-NERD-tree"]
+	path = bundle/The-NERD-tree
+	url = git@github.com:vim-scripts/The-NERD-tree.git
+[submodule "bundle/Indent-Guides"]
+	path = bundle/Indent-Guides
+	url = git@github.com:vim-scripts/Indent-Guides.git
+[submodule "bundle/protodef"]
+	path = bundle/protodef
+	url = git@github.com:ewiplayer/vim-protodef.git
+[submodule "bundle/fswitch"]
+	path = bundle/fswitch
+	url = git@github.com:ewiplayer/vim-fswitch.git
+[submodule "bundle/status-quo"]
+	path = bundle/status-quo
+	url = git@github.com:mihai-rotaru/vim-status-quo.git
