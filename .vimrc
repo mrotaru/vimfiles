@@ -543,7 +543,9 @@ iab Fone      Phone
 " Set up the window colors and size
 "-----------------------------------------------------------------------------
 if has("gui_running")
-    set guifont=DejaVu_Sans_mono:h10
+    if has("win32")
+        set guifont=DejaVu_Sans_mono:h10
+    endif
     set background=light
     colorscheme sift
     if !exists("g:vimrcloaded")
