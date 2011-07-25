@@ -1,11 +1,13 @@
-let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
-let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
-set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
+if has("win32")
+    let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
+    let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
+    set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
+    cd D:/projekts
+endif
 
 filetype off 
 
 set nocompatible
-cd D:/projekts
 "source $VIMRUNTIME/vimrc_example.vim
 "source $VIMRUNTIME/mswin.vim
 "behave mswin
