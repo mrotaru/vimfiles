@@ -1,41 +1,13 @@
 let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
 let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
 set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
+cd D:/projekts
 
 filetype off 
 
 set nocompatible
-cd D:/projekts
-"source $VIMRUNTIME/vimrc_example.vim
-"source $VIMRUNTIME/mswin.vim
-"behave mswin
 
 nmap <Tab> <C-W><C-W>
-
-noremap <C-A> bi<C-R>=<SID>MyFunction1( expand("<cword>"))<CR><Esc><Right>dw
-noremap <C-X> bi<C-R>=<SID>MyFunction1( expand("<cword>"))<CR><Esc><Right>dw
-
-"nmap <leader>z :%s#\<<c-r>=MyFunction( expand("<cword>"))<cr>\>#
-
-function! <SID>MyFunction1( word )
-    if a:word == 'true'
-        return 'false'
-    elseif a:word == 'false'
-        return 'true'
-    else
-        return eval( str2nr( a:word ) + 50 )
-    endif
-endfunction
-
-function! <SID>MyFunction2( word )
-    if a:word == 'true'
-        return 'false'
-    elseif a:word == 'false'
-        return 'true'
-    else
-        return eval( str2nr( a:word ) - 50 )
-    endif
-endfunction
 
 "-----------------------------------------------------------------------------
 " pathogen plugin stuff
@@ -202,10 +174,8 @@ set number
 "-----------------------------------------------------------------------------
 " edit last file...
 nmap <F1> :e #<1<CR>
-" TODO: there must be a better way
-nmap <silent> ,el :e ~/Projects/status-quo/status-quo.vim<CR>
-nmap <silent> ,so :so ~/Projects/status-quo/status-quo.vim<CR>
-nmap <silent> ,io :!cp ~/Projects/status-quo/status-quo.vim ~/.vim/plugin/status-quo.vim<CR>
+
+" compiling
 nmap <silent> <F5> :execute '!' . &makeprg . " 2>errorz 1>&2"<CR>:cexpr system('egrep ":[0-9]+:[0-9]+: error" ' . 'errorz')<CR>
 nmap <silent> <F6> :!main<CR>
 nmap <silent> <F11> :cprevious<CR>
@@ -222,7 +192,7 @@ imap jk <Esc>:
 "nmap <silent> ,p "+gP
 
 " need an easy way to paste from global clipboard
-imap <silent> <C-V><C-V> <Esc>"+gp
+imap <silent> <C-V><C-V> <Esc>"+gP
 
 " cd to the directory containing the file in the buffer
 nmap <silent> ,cd :lcd %:h<CR>
@@ -395,9 +365,7 @@ let g:marvim_store = g:plugin_data . s:path_seperator . 'marvim'
 " tracvim plugin stuff
 "-----------------------------------------------------------------------------
 let g:tracServerList = {}
-"let g:tracServerList['Todo list'] = 'http://mihai.rotaru:asdjkl@localhost:8001/.trac-todo/login/xmlrpc'
 let g:tracServerList['Grombo']    = 'http://mihai.rotaru:asdjkl@localhost:8000/Grombo/login/xmlrpc'
-"let g:tracServerList['Vim Trac - vimtrac user'] = 'http://vimtracuser:wibble@www.ascetinteractive.com.au/vimtrac/login/xmlrpc'
 
 "-----------------------------------------------------------------------------
 " EnhancedCommentify Plugin Settings
@@ -410,24 +378,10 @@ vmap <C-c> <Plug>Comment
 vmap <C-x> <Plug>DeComment
 
 "-----------------------------------------------------------------------------
-" MiniBufExplorer Plugin Settings
+" Disabled plugins
 "-----------------------------------------------------------------------------
-" 
 let loaded_minibufexplorer = 1
-
-"-----------------------------------------------------------------------------
-" ShowMarks Plugin Stuff
-"-----------------------------------------------------------------------------
-"
 let g:loaded_showmarks = 1
-
-"-----------------------------------------------------------------------------
-" Source Explorer Plugin Settings
-"-----------------------------------------------------------------------------
-
-"-----------------------------------------------------------------------------
-" NERD Tree Plugin Settings
-"-----------------------------------------------------------------------------
 
 "-----------------------------------------------------------------------------
 " FSwitch Settings
@@ -442,14 +396,6 @@ nmap <silent> ,oK :FSSplitAbove<CR>
 nmap <silent> ,oj :FSBelow<CR>
 nmap <silent> ,oJ :FSSplitBelow<CR>
 
-
-"-----------------------------------------------------------------------------
-" SnipMate Settings
-"-----------------------------------------------------------------------------
-"source ~/.vim/snippets/support_functions.vim
-"source ~/.vim/snippets/support_functions_derek.vim
-
-
 "-----------------------------------------------------------------------------
 " vim intellisense for java
 " - spawns a new Vim window each time completion is performed
@@ -462,14 +408,6 @@ let g:intellisense_jvm_dir=("c:\\Program Files\\Java\\jdk1.6.0_24\\jre\\bin\\ser
 " Java highlighting
 "-----------------------------------------------------------------------------
 let java_highlight_all=1
-
-"-----------------------------------------------------------------------------
-" FuzzyFinder Settings
-"-----------------------------------------------------------------------------
-
-"-----------------------------------------------------------------------------
-" UltiSnips Settings
-"-----------------------------------------------------------------------------
 
 "-----------------------------------------------------------------------------
 " Functions
