@@ -1,11 +1,26 @@
+<<<<<<< HEAD
 let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
 let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
 set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
 cd D:/projekts
+=======
+if has("win32")
+    let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
+    let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
+    set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
+    cd D:/projekts
+endif
+>>>>>>> b0097ff3698a9a1a93006c3f4818365814c5581e
 
 filetype off 
 
 set nocompatible
+<<<<<<< HEAD
+=======
+"source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
+>>>>>>> b0097ff3698a9a1a93006c3f4818365814c5581e
 
 nmap <Tab> <C-W><C-W>
 
@@ -479,7 +494,9 @@ iab Fone      Phone
 " Set up the window colors and size
 "-----------------------------------------------------------------------------
 if has("gui_running")
-    set guifont=DejaVu_Sans_mono:h10
+    if has("win32")
+        set guifont=DejaVu_Sans_mono:h10
+    endif
     set background=light
     colorscheme sift
     if !exists("g:vimrcloaded")
