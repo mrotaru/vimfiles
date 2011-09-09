@@ -1,26 +1,13 @@
-<<<<<<< HEAD
-let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
-let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
-set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
-cd D:/projekts
-=======
 if has("win32")
     let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
     let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
     set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
     cd D:/projekts
 endif
->>>>>>> b0097ff3698a9a1a93006c3f4818365814c5581e
 
 filetype off 
 
 set nocompatible
-<<<<<<< HEAD
-=======
-"source $VIMRUNTIME/vimrc_example.vim
-"source $VIMRUNTIME/mswin.vim
-"behave mswin
->>>>>>> b0097ff3698a9a1a93006c3f4818365814c5581e
 
 nmap <Tab> <C-W><C-W>
 
@@ -410,14 +397,6 @@ nmap <silent> ,ok :FSAbove<CR>
 nmap <silent> ,oK :FSSplitAbove<CR>
 nmap <silent> ,oj :FSBelow<CR>
 nmap <silent> ,oJ :FSSplitBelow<CR>
-
-"-----------------------------------------------------------------------------
-" vim intellisense for java
-" - spawns a new Vim window each time completion is performed
-" - slow reaction
-"-----------------------------------------------------------------------------
-let g:intellisense_dsable=1
-let g:intellisense_jvm_dir=("c:\\Program Files\\Java\\jdk1.6.0_24\\jre\\bin\\server")
 
 "-----------------------------------------------------------------------------
 " Java highlighting
