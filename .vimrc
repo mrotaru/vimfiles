@@ -449,6 +449,9 @@ augroup vimfiles
     au!
     au BufEnter *.vim nmap <f5> :source %<CR>
 
+" when loosing focus, write all buffers
+au FocusLost * :wa
+
 "-----------------------------------------------------------------------------
 " Fix constant spelling mistakes
 "-----------------------------------------------------------------------------
