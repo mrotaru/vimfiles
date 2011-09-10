@@ -78,6 +78,7 @@ set ruler
 
 set relativenumber
 set undofile
+set gdefault
 
 " tell VIM to always put a status line in, even if there is only one window
 set laststatus=2
