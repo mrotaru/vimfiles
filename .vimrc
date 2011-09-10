@@ -1,15 +1,18 @@
+"-----------------------------------------------------------------------------
+" pdev stuff
+"-----------------------------------------------------------------------------
 if has("win32")
-    let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
-    let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
-    set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
+    if !empty("$PDEV")
+        let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
+        let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
+        set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
+    endif
     cd D:/projekts
 endif
 
 filetype off 
 
 set nocompatible
-
-nmap <Tab> <C-W><C-W>
 
 "-----------------------------------------------------------------------------
 " pathogen plugin stuff
@@ -20,7 +23,6 @@ call pathogen#runtime_append_all_bundles()
 "-----------------------------------------------------------------------------
 " Global Stuff
 "-----------------------------------------------------------------------------
-set nocompatible
 
 " ignore me some filez
 set wildignore=*.lnk,*.o
@@ -73,6 +75,9 @@ set hidden
 "set cpoptions=ces$
 
 set ruler
+
+set relativenumber
+set undofile
 
 " tell VIM to always put a status line in, even if there is only one window
 set laststatus=2
@@ -176,6 +181,8 @@ set number
 "-----------------------------------------------------------------------------
 " edit last file...
 nmap <F1> :e #<1<CR>
+
+nmap <Tab> <C-W><C-W>
 
 " compiling
 nmap <silent> <F5> :execute '!' . &makeprg . " 2>errorz 1>&2"<CR>:cexpr system('egrep ":[0-9]+:[0-9]+: error" ' . 'errorz')<CR>
