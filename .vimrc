@@ -76,7 +76,6 @@ set hidden
 
 set ruler
 
-set relativenumber
 set undofile
 set gdefault
 
@@ -171,8 +170,8 @@ set incsearch
 " Set the tags files to be the following
 set tags=./tags,tags
 
-" show line numbers by default
-set number
+" show relative line numbers by default
+set relativenumber
 
 " Let the syntax highlighting for Java files allow cpp keywords
 "let java_allow_cpp_keywords = 1
@@ -223,6 +222,11 @@ nmap <silent> ,w :set invwrap<CR>:set wrap?<CR>
 
 " Run the command that was just yanked
 nmap <silent> ,rc :@"<cr>
+
+" F1 = Esc
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
 
 " allow command line editing like emacs
 cnoremap <C-A>      <Home>
