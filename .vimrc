@@ -177,11 +177,9 @@ set relativenumber
 "let java_allow_cpp_keywords = 1
 
 "-----------------------------------------------------------------------------
-"   TEMP KEYBOARD MAPPINGS
+" KEYBOARD MAPPINGS
 "-----------------------------------------------------------------------------
-" edit last file...
-nmap <F1> :e #<1<CR>
-
+let mapleader = ","
 nmap <Tab> <C-W><C-W>
 
 " compiling
@@ -227,6 +225,12 @@ nmap <silent> ,rc :@"<cr>
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
+
+" re-hardwrap current paragraph
+nnoremap <leader>q gqip
+
+" select previously pasted text
+nnoremap <leader>v V`]
 
 " allow command line editing like emacs
 cnoremap <C-A>      <Home>
