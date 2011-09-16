@@ -5,6 +5,7 @@ if has("win32")
     if !empty("$PDEV")
         let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
         let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
+        let $PATH=$PATH.";".$PDEV."/MinGW/msys/1.0/bin;".$PDEV."/MinGW/bin"
         set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
     endif
     cd D:/projekts
@@ -349,6 +350,7 @@ endfunction
 " where to place swap files
 if has('win16') || has('win32') || has ('win95') || has('win64')
     set directory=$TMP
+    set makeef=errorz
 else 
     set directory=~/tmp
 endif
@@ -438,6 +440,8 @@ augroup fswitch_au_group
     au BufEnter *.h,*.hpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
     au BufEnter *.c,*.cpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
 augroup END
+
+let g:compiler_gcc_ingore_unmatched_lines=1
 
 augroup autoclose_group
     au!
