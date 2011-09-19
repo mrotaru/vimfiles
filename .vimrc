@@ -182,6 +182,7 @@ set relativenumber
 "-----------------------------------------------------------------------------
 let mapleader = ","
 nmap <Tab> <C-W><C-W>
+nmap mk :make<CR>
 
 " compiling
 nmap <silent> <F5> :execute '!' . &makeprg . " 2>errorz 1>&2"<CR>:cexpr system('egrep ":[0-9]+:[0-9]+: error" ' . 'errorz')<CR>
@@ -194,6 +195,7 @@ nmap <silent> <S-Left> :bprevious<CR>
 
 imap <silent> jj <Esc>
 imap jk <Esc>:
+imap <S-Enter> <Esc>A;<Enter>
 
 " Toggle paste mode
 "nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
@@ -347,13 +349,15 @@ function! NthFromTheEnd( haystack, needle, n )
     endif
 endfunction
 
-" where to place swap files
+" where to place swap files and undo files
 if has('win16') || has('win32') || has ('win95') || has('win64')
     set directory=$TMP
-    set makeef=errorz
+    set undodir=$TMP
 else 
     set directory=~/tmp
 endif
+
+set makeef=errorz
 
 " determine path separator
 if has('win16') || has('win32') || has ('win95') || has('win64')
