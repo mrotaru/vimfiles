@@ -46,3 +46,6 @@
 [submodule "bundle/status-quo"]
 	path = bundle/status-quo
 	url = git@github.com:mihai-rotaru/vim-status-quo.git
+[submodule "bundle/Align"]
+	path = bundle/Align
+	url = git@github.com:mihai-rotaru/Align.vim.git
