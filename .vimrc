@@ -386,6 +386,11 @@ let g:plugins_folder = substitute( g:plugins_folder, '\', s:path_seperator, 'g')
 let g:marvim_store = g:plugin_data . s:path_seperator . 'marvim'
 
 "-----------------------------------------------------------------------------
+" tracvim plugin stuff
+"-----------------------------------------------------------------------------
+let g:tracServerList = {}
+
+"-----------------------------------------------------------------------------
 " EnhancedCommentify Plugin Settings
 "-----------------------------------------------------------------------------
 imap <C-c> <Esc><Plug>Commentji
