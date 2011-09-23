@@ -13,9 +13,6 @@
 [submodule "bundle/chapa"]
 	path = bundle/chapa
 	url = git@github.com:alfredodeza/chapa.vim.git
-[submodule "bundle/headerguard"]
-	path = bundle/headerguard
-	url = git@github.com:vim-scripts/headerguard.vim.git
 [submodule "bundle/taglist"]
 	path = bundle/taglist
 	url = git@github.com:vim-scripts/taglist.vim.git
@@ -52,3 +49,6 @@
 [submodule "bundle/localVimrc"]
 	path = bundle/localVimrc
 	url = https://github.com/vim-scripts/localvimrc.git
+[submodule "bundle/headerguard"]
+	path = bundle/headerguard
+	url = git@github.com:mihai-rotaru/headerguard.vim.git
