@@ -177,6 +177,12 @@ set relativenumber
 " Let the syntax highlighting for Java files allow cpp keywords
 "let java_allow_cpp_keywords = 1
 
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+" [ http://vim.wikia.com/wiki/Make_make_more_helpful ]
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
 "-----------------------------------------------------------------------------
 " KEYBOARD MAPPINGS
 "-----------------------------------------------------------------------------
