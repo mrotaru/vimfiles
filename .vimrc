@@ -411,6 +411,11 @@ nmap <C-x> <Plug>DeComment
 vmap <C-c> <Plug>Comment
 vmap <C-x> <Plug>DeComment
 
+let g:localvimrc_ask = 0 "automatically source local vimrc's
+let g:localvimrc_sandbox = 0 "local vimrcs are of little use in sandbox mode
+
+let g:errormarker_disablemappings = 1 "errormarker: no mappings
+
 "-----------------------------------------------------------------------------
 " Disabled plugins
 "-----------------------------------------------------------------------------
