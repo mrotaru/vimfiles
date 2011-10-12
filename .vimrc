@@ -1,3 +1,4 @@
+set nocompatible
 "-----------------------------------------------------------------------------
 " pdev stuff
 "-----------------------------------------------------------------------------
@@ -7,13 +8,13 @@ if has("win32")
         let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
         let $PATH=$PATH.";".$PDEV."/MinGW/msys/1.0/bin;".$PDEV."/MinGW/bin"
         set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
+        set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles/bundle/snipmate/after
     endif
     cd D:/projekts
 endif
 
 filetype off 
-
-set nocompatible
+autocmd!
 
 "-----------------------------------------------------------------------------
 " pathogen plugin stuff
@@ -25,6 +26,11 @@ call pathogen#runtime_append_all_bundles()
 " Global Stuff
 "-----------------------------------------------------------------------------
 
+" Set filetype stuff to on
+filetype on
+filetype plugin on
+filetype indent on
+
 " ignore me some filez
 set wildignore=*.lnk,*.o
 
@@ -34,11 +40,6 @@ set wildignore=*.lnk,*.o
 
 " set vim to store backups in a certain directory to avoid clutter
 set backupdir=$TMP
-
-" Set filetype stuff to on
-filetype on
-filetype plugin on
-filetype indent on
 
 " don't wrap by default
 set nowrap
@@ -187,7 +188,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " KEYBOARD MAPPINGS
 "-----------------------------------------------------------------------------
 let mapleader = ","
-nmap <Tab> <C-W><C-W>
+"nmap <Tab> <C-W><C-W>
 nmap mk :make<CR>
 
 " compiling
