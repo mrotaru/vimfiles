@@ -34,9 +34,6 @@
 [submodule "bundle/Indent-Guides"]
 	path = bundle/Indent-Guides
 	url = git@github.com:vim-scripts/Indent-Guides.git
-[submodule "bundle/protodef"]
-	path = bundle/protodef
-	url = git@github.com:ewiplayer/vim-protodef.git
 [submodule "bundle/fswitch"]
 	path = bundle/fswitch
 	url = git@github.com:ewiplayer/vim-fswitch.git
