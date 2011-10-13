@@ -58,3 +58,6 @@
 [submodule "bundle/mru"]
 	path = bundle/mru
 	url = https://github.com/vim-scripts/mru.vim.git
+[submodule "bundle/protodef"]
+	path = bundle/protodef
+	url = git@github.com:mihai-rotaru/vim-protodef.git
