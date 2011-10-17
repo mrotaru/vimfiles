@@ -36,7 +36,7 @@
 	url = git@github.com:vim-scripts/Indent-Guides.git
 [submodule "bundle/fswitch"]
 	path = bundle/fswitch
-	url = git@github.com:ewiplayer/vim-fswitch.git
+	url = git@github.com:derekwyatt/vim-fswitch.git
 [submodule "bundle/status-quo"]
 	path = bundle/status-quo
 	url = git@github.com:mihai-rotaru/vim-status-quo.git
