@@ -61,3 +61,6 @@
 [submodule "bundle/protodef"]
 	path = bundle/protodef
 	url = git@github.com:mihai-rotaru/vim-protodef.git
+[submodule "bundle/zencoding"]
+	path = bundle/zencoding
+	url = git://github.com/mattn/zencoding-vim.git
