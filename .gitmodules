@@ -52,9 +52,6 @@
 [submodule "bundle/errormarker"]
 	path = bundle/errormarker
 	url = git@github.com:mihai-rotaru/errormarker.vim.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
 [submodule "bundle/mru"]
 	path = bundle/mru
 	url = https://github.com/vim-scripts/mru.vim.git
@@ -64,3 +61,6 @@
 [submodule "bundle/zencoding"]
 	path = bundle/zencoding
 	url = git://github.com/mattn/zencoding-vim.git
+[submodule "bundle/snipmate"]
+	path = bundle/snipmate
+	url = git@github.com:mihai-rotaru/snipmate.vim.git
