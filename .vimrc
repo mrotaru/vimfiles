@@ -365,6 +365,7 @@ else
 endif
 
 set makeef=errorz
+"set errorfile=errorz
 
 " determine path separator
 if has('win16') || has('win32') || has ('win95') || has('win64')
@@ -392,6 +393,9 @@ let g:plugins_folder = substitute( g:plugins_folder, '\', s:path_seperator, 'g')
 
 let g:marvim_store = g:plugin_data . s:path_seperator . 'marvim'
 
+let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
+let g:snippets_dir = g:snippets_dir . ',' . g:plugin_data . s:path_seperator . 'snipmate' . s:path_seperator . 'snippets' . s:path_seperator
+
 "-----------------------------------------------------------------------------
 " tracvim plugin stuff
 "-----------------------------------------------------------------------------
@@ -412,9 +416,15 @@ nmap <C-x> <Plug>DeComment
 vmap <C-c> <Plug>Comment
 vmap <C-x> <Plug>DeComment
 
+"-----------------------------------------------------------------------------
+" LocalVimrc Plugin Settings
+"-----------------------------------------------------------------------------
 let g:localvimrc_ask = 0 "automatically source local vimrc's
 let g:localvimrc_sandbox = 0 "local vimrcs are of little use in sandbox mode
 
+"-----------------------------------------------------------------------------
+" ErrorMarker Plugin Settings
+"-----------------------------------------------------------------------------
 let g:errormarker_disablemappings = 1 "errormarker: no mappings
 
 "-----------------------------------------------------------------------------
@@ -520,7 +530,7 @@ if has("gui_running")
         set guifont=DejaVu_Sans_mono:h10
     endif
     set background=light
-    colorscheme sift
+    colorscheme phd
     if !exists("g:vimrcloaded")
         winpos 0 0
         if ! &diff
