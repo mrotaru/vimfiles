@@ -428,6 +428,17 @@ let g:localvimrc_sandbox = 0 "local vimrcs are of little use in sandbox mode
 let g:errormarker_disablemappings = 1 "errormarker: no mappings
 
 "-----------------------------------------------------------------------------
+"  MRU Plugin Settings
+"-----------------------------------------------------------------------------
+"default: move to the first non-ws char on next line
+nmap <silent> <C-M> :MRU<CR> 
+
+"-----------------------------------------------------------------------------
+" zencoding plugin stuff
+"-----------------------------------------------------------------------------
+let g:user_zen_leader_key = '<c-l>'
+
+"-----------------------------------------------------------------------------
 " Disabled plugins
 "-----------------------------------------------------------------------------
 let loaded_minibufexplorer = 1
