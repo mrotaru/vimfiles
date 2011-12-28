@@ -508,6 +508,16 @@ augroup vimfiles
     au!
     au BufEnter *.vim nmap <f5> :source %<CR>
 
+augroup xml
+    au!
+    au BufEnter *.xml :compiler xmlstar-val
+augroup END
+
+augroup docbook
+    au!
+    au BufEnter *.docbook :compiler xmlstar-val | :set filetype=xml
+augroup END
+
 " when loosing focus, write all buffers
 au FocusLost * :wa
 
