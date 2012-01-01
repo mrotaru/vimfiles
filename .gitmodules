@@ -67,3 +67,6 @@
 [submodule "bundle/xmlstar-val-compiler"]
 	path = bundle/xmlstar-val-compiler
 	url = git@github.com:mihai-rotaru/xmlstar-val-compiler.git
+[submodule "bundle/asciidoc-ft-syntax"]
+	path = bundle/asciidoc-ft-syntax
+	url = git@github.com:mihai-rotaru/vim-asciidoc-ft-syntax.git
