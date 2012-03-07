@@ -49,7 +49,15 @@ set wildignore=*.lnk,*.o
 
 
 " set vim to store backups in a certain directory to avoid clutter
-set backupdir=$TMP
+if has("win32")
+    set backupdir=$TMP
+    set directory=$TMP
+    set undodir=$TMP
+else
+    set backupdir=/tmp
+    set directory=/tmp
+    set undodir=/tmp
+endif
 
 " don't wrap by default
 set nowrap
@@ -365,14 +373,6 @@ function! NthFromTheEnd( haystack, needle, n )
         return k
     endif
 endfunction
-
-" where to place swap files and undo files
-if has('win16') || has('win32') || has ('win95') || has('win64')
-    set directory=$TMP
-    set undodir=$TMP
-else 
-    set directory=~/tmp
-endif
 
 set makeef=errorz
 "set errorfile=errorz
