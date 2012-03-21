@@ -2,20 +2,20 @@ set nocompatible
 "-----------------------------------------------------------------------------
 " pdev stuff
 "-----------------------------------------------------------------------------
-if has("win32")
+if strlen($WINDIR)
     if strlen($PDEV)
-        let $HOME=$PDEV."/MinGW/msys/1.0/home/Boboc"
-        let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/.vimrc"
+        let $HOME=$PDEV."/MinGW/msys/1.0/home/".$USERNAME
+        let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/".$USERNAME."/.vimrc"
         let $PATH=$PATH.";".$PDEV."/MinGW/msys/1.0/bin;".$PDEV."/MinGW/bin"
-        set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles
-        set runtimepath+=$PDEV/MinGW/msys/1.0/home/Boboc/vimfiles/bundle/snipmate/after
+        let &runtimepath=&runtimepath.",".$PDEV."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles"
+        let &runtimepath=&runtimepath.",".$PDEV."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles/bundle/snipmate/after"
     else
-        let s:prefix="C:\pdev"
-        let $HOME=s:prefix."/MinGW/msys/1.0/home/Boboc"
-        let $MYVIMRC=s:prefix."/MinGW/msys/1.0/home/Boboc/.vimrc"
-        let $PATH=$PATH.";".s:prefix."/MinGW/msys/1.0/bin;".s:prefix."/MinGW/bin"
-        set runtimepath+=s:prefix/MinGW/msys/1.0/home/Boboc/vimfiles
-        set runtimepath+=s:prefix/MinGW/msys/1.0/home/Boboc/vimfiles/bundle/snipmate/after
+        let s:prefix="/c/pdev"
+        let $HOME=s:prefix."/MinGW/msys/1.0/home/".$USERNAME
+        let $MYVIMRC=s:prefix."/MinGW/msys/1.0/home/".$USERNAME."/.vimrc"
+        let $PATH=$PATH.";".s:prefix."/MinGW/msys/1.0/bin;".s:prefix."/MinGW/bin;".s:prefix."/bin"
+        let &runtimepath=&runtimepath.",".s:prefix."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles"
+        let &runtimepath=&runtimepath.",".s:prefix."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles/bundle/snipmate/after"
     endif
 endif
 
