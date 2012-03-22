@@ -1,22 +1,80 @@
 set nocompatible
 "-----------------------------------------------------------------------------
+" FUNCTIONS
+"-----------------------------------------------------------------------------
+" looks for the n'th needle in the haystack, searching from the end
+" if haystack contains no needles, returns -1
+function! NthFromTheEnd( haystack, needle, n )
+    let k=len( a:haystack )-1
+    let needles_sofar = 0
+    while k >= 0 && needles_sofar < a:n
+        if a:haystack[k] == a:needle
+            let needles_sofar=needles_sofar+1
+        endif
+        let k=k-1
+    endwhile
+    if needles_sofar == a:n
+        let k=k+1
+        return k
+    else 
+        let k=-1
+        return k
+    endif
+endfunction
+
+" determine path separator
+if has('win16') || has('win32') || has ('win95') || has('win64')
+    let s:path_seperator = '\'
+else 
+    let s:path_seperator = '/'
+endif
+
+" returns 'path' with 'num_dirs' removed, WITH a trailing path separator
+function! TrimDirs( path, num_dirs )
+    let sep_index=NthFromTheEnd( a:path, s:path_seperator, a:num_dirs )
+    if sep_index != -1
+        return strpart( a:path, 0, sep_index + 1 )
+    endif
+endfunction
+
+"-----------------------------------------------------------------------------
 " pdev stuff
 "-----------------------------------------------------------------------------
 if strlen($WINDIR)
-    if strlen($PDEV)
-        let $HOME=$PDEV."/MinGW/msys/1.0/home/".$USERNAME
-        let $MYVIMRC=$PDEV."/MinGW/msys/1.0/home/Boboc/".$USERNAME."/.vimrc"
-        let $PATH=$PATH.";".$PDEV."/MinGW/msys/1.0/bin;".$PDEV."/MinGW/bin"
-        let &runtimepath=&runtimepath.",".$PDEV."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles"
-        let &runtimepath=&runtimepath.",".$PDEV."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles/bundle/snipmate/after"
-    else
-        let s:prefix="/c/pdev"
-        let $HOME=s:prefix."/MinGW/msys/1.0/home/".$USERNAME
-        let $MYVIMRC=s:prefix."/MinGW/msys/1.0/home/".$USERNAME."/.vimrc"
-        let $PATH=$PATH.";".s:prefix."/MinGW/msys/1.0/bin;".s:prefix."/MinGW/bin;".s:prefix."/bin"
-        let &runtimepath=&runtimepath.",".s:prefix."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles"
-        let &runtimepath=&runtimepath.",".s:prefix."/MinGW/msys/1.0/home/".$USERNAME."/vimfiles/bundle/snipmate/after"
+    if( expand("$MSYSTEM") == "MINGW32" ) " run from within an MSYS environment
+        let s:homedir='C:/pdev/MinGW/msys/1.0/home/'.$USERNAME
+        if !isdirectory( s:homedir )
+            echo "Cannot find home directory: ".s:homedir." is not a folder."
+        else
+            let $HOME=s:homedir
+            let $MYVIMRC=s:homedir.'/.vimrc'
+            let &runtimepath=&runtimepath.",".s:homedir.'/vimfiles'
+            let &runtimepath=&runtimepath.",".s:homedir.'/vimfiles/bundle/snipmate/after'
+        endif
+
+        let s:mingwdir='C:/pdev/MinGW'
+        if !isdirectory( s:mingwdir )
+            echo "Cannot find MINGW directory: ".s:mingwdir." is not a folder."
+        else
+            let $PATH=$PATH.";".s:mingwdir.'/msys/1.0/bin;'.s:mingwdir.'/bin;C:/pdev/bin'
+        endif
+
+        if isdirectory( 'C:/pdev/bin' )
+            let $PATH=$PATH.';C:/pdev/bin'
+        endif
+    else " probably portable gvim; find the 'settings' folder
+        let s:settings_dir=TrimDirs(expand("$VIM"),2)."Data/settings"
+        if isdirectory( s:settings_dir ) 
+            let $MYVIMRC=s:settings_dir.'/.vimrc'
+            let &runtimepath=&runtimepath.",".s:settings_dir.'/vimfiles'
+            let &runtimepath=&runtimepath.",".s:settings_dir.'/vimfiles/bundle/snipmate/after'
+        else
+            echo "Warning: assumed this is PortableGVim, but ".s:settings_dir." is not a folder."
+        endif
     endif
+else " most likely Linux
+    let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles'
+    let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles/bundle/snipmate/after'
 endif
 
 if exists("$CODE")
@@ -47,7 +105,6 @@ set wildignore=*.lnk,*.o
 " pathogen gets the (vim)balls
 "set g:vimball_home=
 
-
 " set vim to store backups in a certain directory to avoid clutter
 if has("win32")
     set backupdir=$TMP
@@ -58,6 +115,7 @@ else
     set directory=/tmp
     set undodir=/tmp
 endif
+set makeef=errorz
 
 " don't wrap by default
 set nowrap
@@ -351,46 +409,6 @@ set synmaxcol=2048
 " I don't like it when the matching parens are automatically highlighted
 "let loaded_matchparen = 1
 
-"-----------------------------------------------------------------------------
-" FUNCTIONS
-"-----------------------------------------------------------------------------
-" looks for the n'th needle in the haystack, searching from the end
-" if haystack contains no needles, returns -1
-function! NthFromTheEnd( haystack, needle, n )
-    let k=len( a:haystack )-1
-    let needles_sofar = 0
-    while k >= 0 && needles_sofar < a:n
-        if a:haystack[k] == a:needle
-            let needles_sofar=needles_sofar+1
-        endif
-        let k=k-1
-    endwhile
-    if needles_sofar == a:n
-        let k=k+1
-        return k
-    else 
-        let k=-1
-        return k
-    endif
-endfunction
-
-set makeef=errorz
-"set errorfile=errorz
-
-" determine path separator
-if has('win16') || has('win32') || has ('win95') || has('win64')
-    let s:path_seperator = '\'
-else 
-    let s:path_seperator = '/'
-endif
-
-" returns 'path' with 'num_dirs' removed, WITH a trailing path separator
-function! TrimDirs( path, num_dirs )
-    let sep_index=NthFromTheEnd( a:path, s:path_seperator, a:num_dirs )
-    if sep_index != -1
-        return strpart( a:path, 0, sep_index + 1 )
-    endif
-endfunction
 
 "-----------------------------------------------------------------------------
 " set globals pointing to 'bundle' and plugin_data folders 
@@ -558,10 +576,10 @@ iab Fone      Phone
 "-----------------------------------------------------------------------------
 if has("gui_running")
     if has("win32")
-        set guifont=DejaVu_Sans_mono:h10
+        set guifont=Envy_Code_R:h10
     endif
     set background=light
-    colorscheme phd
+    colorscheme greenvision
     if !exists("g:vimrcloaded")
         winpos 0 0
         if ! &diff
