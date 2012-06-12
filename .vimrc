@@ -579,7 +579,7 @@ if has("gui_running")
         set guifont=Envy_Code_R:h10
     endif
     set background=light
-    colorscheme greenvision
+    colorscheme jellybeans
     if !exists("g:vimrcloaded")
         winpos 0 0
         if ! &diff
@@ -591,3 +591,30 @@ if has("gui_running")
     endif
 endif
 :nohls
+
+" fix qotes
+" often, when pasting code from ebooks, the fancy qutes need to be replaced
+" ------------------------------------------------------------------------------
+function! FixQuotes()
+    if &gdefault
+        %s/“/"/
+        %s/”/"/
+    else
+        %s/“/"/g
+        %s/”/"/g
+    endif
+endfunction
+
+" transform: "function(parameter){" into "function( parameter ) {"
+" ------------------------------------------------------------------------------
+function! RAMStyle() range
+    for linenum in range( a:firstline, a:lastline )
+        let curr_line   = getline( linenum )
+        let replacement = substitute( curr_line,  '(\(.\)','(\ \1','g' )
+        let replacement = substitute( replacement,'\(.\))','\1\ )','g' )
+        let replacement = substitute( replacement,'[\(.\)','[\ \1','g' )
+        let replacement = substitute( replacement,'\(.\)]','\1\ ]','g' )
+        let replacement = substitute( replacement,'){',') {','g' )
+        call setline( linenum, replacement )
+    endfor
+endfunction
