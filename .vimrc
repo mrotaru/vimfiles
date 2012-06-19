@@ -536,6 +536,14 @@ augroup docbook
     au BufEnter *.docbook :compiler xmlstar-val | :set filetype=xml
 augroup END
 
+augroup CoffeeScript
+    au!
+    au BufEnter *.coffee map <F5> :CoffeeRun<CR>
+augroup END
+
+"let coffee_make_options = '--bare'
+let coffee_make_options = ''
+
 " when loosing focus, write all buffers
 au FocusLost * :wa
 
