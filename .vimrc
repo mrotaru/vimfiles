@@ -1,6 +1,6 @@
 set nocompatible
 "-----------------------------------------------------------------------------
-" FUNCTIONS
+" FUNCTIONS {{{
 "-----------------------------------------------------------------------------
 " looks for the n'th needle in the haystack, searching from the end
 " if haystack contains no needles, returns -1
@@ -37,9 +37,36 @@ function! TrimDirs( path, num_dirs )
     endif
 endfunction
 
+" fix qotes
+" often, when pasting code from ebooks, the fancy qutes need to be replaced
+" ------------------------------------------------------------------------------
+function! FixQuotes()
+    if &gdefault
+        %s/“/"/
+        %s/”/"/
+    else
+        %s/“/"/g
+        %s/”/"/g
+    endif
+endfunction
+
+" transform: "function(parameter){" into "function( parameter ) {"
+" ------------------------------------------------------------------------------
+function! RAMStyle() range
+    for linenum in range( a:firstline, a:lastline )
+        let curr_line   = getline( linenum )
+        let replacement = substitute( curr_line,  '(\(.\)','(\ \1','g' )
+        let replacement = substitute( replacement,'\(.\))','\1\ )','g' )
+        let replacement = substitute( replacement,'[\(.\)','[\ \1','g' )
+        let replacement = substitute( replacement,'\(.\)]','\1\ ]','g' )
+        let replacement = substitute( replacement,'){',') {','g' )
+        call setline( linenum, replacement )
+    endfor
+endfunction
+"}}} Functions
 
 "-----------------------------------------------------------------------------
-" pdev stuff
+" pdev stuff {{{
 "-----------------------------------------------------------------------------
 if strlen($WINDIR)
     if( expand("$MSYSTEM") == "MINGW32" ) " run from within an MSYS environment
@@ -81,6 +108,7 @@ else " most likely Linux
     let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles'
     let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles/bundle/snipmate/after'
 endif
+"}}}
 
 if exists("$CODE")
     cd $CODE
@@ -92,8 +120,8 @@ autocmd!
 "-----------------------------------------------------------------------------
 " pathogen plugin stuff
 "-----------------------------------------------------------------------------
-call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 "-----------------------------------------------------------------------------
 " Global Stuff
@@ -271,7 +299,7 @@ autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 "-----------------------------------------------------------------------------
-" KEYBOARD MAPPINGS
+" KEYBOARD MAPPINGS {{{
 "-----------------------------------------------------------------------------
 let mapleader = ","
 nmap mk :make<CR>
@@ -412,6 +440,7 @@ nmap ,pv "xyawoecho '<Esc>"xpi ' . <Esc>"xp
 
 " Delete all buffers
 nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
+"}}} Mappings
 
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
@@ -420,8 +449,16 @@ set synmaxcol=2048
 "let loaded_matchparen = 1
 
 
+" Folding rules {{{
+set foldenable " enable folding
+set foldcolumn=2 " add a fold column
+set foldmethod=marker " detect triple-{ style fold markers
+set foldlevelstart=99 " start out with everything folded
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which commands trigger auto-unfold
+" }}}
+
 "-----------------------------------------------------------------------------
-" set globals pointing to 'bundle' and plugin_data folders 
+" set globals pointing to 'bundle' and plugin_data folders {{{
 "-----------------------------------------------------------------------------
 let g:plugin_data = expand('~') . '\vimfiles\plugin_data'
 let g:plugin_data = substitute( g:plugin_data, '\', s:path_seperator, 'g')
@@ -433,6 +470,7 @@ let g:marvim_store = g:plugin_data . s:path_seperator . 'marvim'
 
 let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
 let g:snippets_dir = g:snippets_dir . ',' . g:plugin_data . s:path_seperator . 'snipmate' . s:path_seperator . 'snippets' . s:path_seperator
+" }}}
 
 "-----------------------------------------------------------------------------
 " tracvim plugin stuff
@@ -512,59 +550,63 @@ function! RunSystemCall(systemcall)
 endfunction
 
 "-----------------------------------------------------------------------------
-" Auto commands
+" Auto commands {{{
 "-----------------------------------------------------------------------------
-" C++ headers ( h or hpp ) are kept in the same folder as the .cpp files
-augroup fswitch_au_group
-    au!
-    au BufEnter *.h,*.hpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
-    au BufEnter *.c,*.cpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
-augroup END
+if has( "autocmd" )
+    augroup cpp
+        au!
 
-let g:compiler_gcc_ingore_unmatched_lines=1
+        " C++ headers ( h or hpp ) are kept in the same folder as the .cpp files
+        au BufEnter *.h,*.hpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
+        au BufEnter *.c,*.cpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
+    augroup END
 
-augroup autoclose_group
-    au!
-    au BufEnter *.wiki let g:disable_autoclose = 1
-augroup END
+    let g:compiler_gcc_ingore_unmatched_lines=1
 
-augroup java_stuff
-    au!
-    au BufEnter *.java map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
-augroup END
+    augroup autoclose_group
+        au!
+        au BufEnter *.wiki let g:disable_autoclose = 1
+    augroup END
 
-augroup vimfiles
-    au!
-    au BufEnter *.vim nmap <f5> :source %<CR>
+    augroup java
+        au!
+        au BufEnter *.java map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
+    augroup END
 
-augroup xml
-    au!
-    au BufEnter *.xml :compiler xmlstar-val
-augroup END
+    augroup vimfiles
+        au!
+        au BufEnter *.vim nmap <f5> :source %<CR>
 
-augroup docbook
-    au!
-    au BufEnter *.docbook :compiler xmlstar-val | :set filetype=xml
-augroup END
+    augroup xml
+        au!
+        au BufEnter *.xml :compiler xmlstar-val
+    augroup END
 
-augroup CoffeeScript
-    au!
-    au BufEnter *.coffee map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
-augroup END
+    augroup docbook
+        au!
+        au BufEnter *.docbook :compiler xmlstar-val | :set filetype=xml
+    augroup END
 
-augroup WebDev
-    au!
-    au BufEnter *php map <C-Enter> :silent ! start http://localhost/boxdrop<CR>
-augroup END
+    augroup CoffeeScript
+        au!
+        au BufEnter *.coffee map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
+    augroup END
 
-"let coffee_make_options = '--bare'
-let coffee_make_options = ''
+    augroup WebDev
+        au!
+        au BufEnter *php map <C-Enter> :silent ! start http://localhost/boxdrop<CR>
+    augroup END
 
-" when loosing focus, write all buffers
-au FocusLost * :wa
+    "let coffee_make_options = '--bare'
+    let coffee_make_options = ''
+
+    " when loosing focus, write all buffers
+    au FocusLost * :wa
+endif
+"}}}
 
 "-----------------------------------------------------------------------------
-" Fix constant spelling mistakes
+" Fix constant spelling mistakes {{{
 "-----------------------------------------------------------------------------
 iab teh       the
 iab Teh       The
@@ -594,6 +636,7 @@ iab seperate  separate
 iab Seperate  Separate
 iab fone      phone
 iab Fone      Phone
+" }}} Spelling mistakes
 
 "-----------------------------------------------------------------------------
 " Set up the window colors and size
@@ -616,29 +659,3 @@ if has("gui_running")
 endif
 :nohls
 
-" fix qotes
-" often, when pasting code from ebooks, the fancy qutes need to be replaced
-" ------------------------------------------------------------------------------
-function! FixQuotes()
-    if &gdefault
-        %s/“/"/
-        %s/”/"/
-    else
-        %s/“/"/g
-        %s/”/"/g
-    endif
-endfunction
-
-" transform: "function(parameter){" into "function( parameter ) {"
-" ------------------------------------------------------------------------------
-function! RAMStyle() range
-    for linenum in range( a:firstline, a:lastline )
-        let curr_line   = getline( linenum )
-        let replacement = substitute( curr_line,  '(\(.\)','(\ \1','g' )
-        let replacement = substitute( replacement,'\(.\))','\1\ )','g' )
-        let replacement = substitute( replacement,'[\(.\)','[\ \1','g' )
-        let replacement = substitute( replacement,'\(.\)]','\1\ ]','g' )
-        let replacement = substitute( replacement,'){',') {','g' )
-        call setline( linenum, replacement )
-    endfor
-endfunction
