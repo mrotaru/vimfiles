@@ -361,6 +361,12 @@ noremap <silent> <C-8> <C-W>+
 noremap <silent> <C-9> <C-W>+
 noremap <silent> <C-0> <C-W>>
 
+" managing buffers
+set wildcharm=<C-Z>
+nnoremap <F10> :b <C-Z>
+nnoremap <C-M> :buffers<CR>:buffer<Space>
+command -nargs=? -bang  Buffer  if <q-args> != '' | exe 'buffer '.<q-args> | else | ls<bang> | let buffer_nn=input('Which one: ') | if buffer_nn != '' | exe buffer_nn != 0 ? 'buffer '.buffer_nn : 'enew' | endif | endif
+
 " Map CTRL-E to do what ',' used to do
 nnoremap <c-e> ,
 vnoremap <c-e> ,
