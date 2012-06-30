@@ -66,8 +66,11 @@ if strlen($WINDIR)
     else " probably portable gvim; find the 'settings' folder
         let s:vimfiles=TrimDirs(expand("$VIM"),2).'Data\settings\vimfiles'
         if isdirectory( s:vimfiles ) 
-            let $HOME=s:vimfiles
-            let $MYVIMRC=$HOME.'/.vimrc'
+            let s:homedir='C:/pdev/MinGW/msys/1.0/home/'.$USERNAME
+            if isdirectory( s:homedir )
+                let $HOME=s:homedir
+            endif
+            let $MYVIMRC=s:vimfiles.'/.vimrc'
             let &runtimepath=&runtimepath.",".s:vimfiles
             let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\snipmate\after'
         else
