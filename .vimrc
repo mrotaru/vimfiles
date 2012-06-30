@@ -37,6 +37,7 @@ function! TrimDirs( path, num_dirs )
     endif
 endfunction
 
+
 "-----------------------------------------------------------------------------
 " pdev stuff
 "-----------------------------------------------------------------------------
@@ -155,6 +156,8 @@ set hidden
 set ruler
 
 set undofile
+
+" regular expressions have /g by default
 set gdefault
 
 " tell VIM to always put a status line in, even if there is only one window
@@ -251,6 +254,9 @@ set tags=./tags,tags
 " show relative line numbers by default
 set relativenumber
 
+" enable modeline
+set modeline
+
 " Let the syntax highlighting for Java files allow cpp keywords
 "let java_allow_cpp_keywords = 1
 
@@ -264,12 +270,9 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " KEYBOARD MAPPINGS
 "-----------------------------------------------------------------------------
 let mapleader = ","
-"nmap <Tab> <C-W><C-W>
 nmap mk :make<CR>
 
 " compiling
-nmap <silent> <F5> :execute '!' . &makeprg . " 2>errorz 1>&2"<CR>:cexpr system('egrep ":[0-9]+:[0-9]+: error" ' . 'errorz')<CR>
-nmap <silent> <F6> :!main<CR>
 nmap <silent> <F11> :cprevious<CR>
 nmap <silent> <F12> :cnext<CR>
 
@@ -297,9 +300,6 @@ nmap <silent> ,n :set invhls<CR>:set hls?<CR>
 " put the vim directives for my file editing settings in
 nmap <silent> ,vi
      \ ovim:set ts=4 sts=4 sw=4:<CR>vim600:fdm=marker fdl=1 fdc=0:<ESC>
-
-" Show all available VIM servers
-"nmap <silent> ,ss :echo serverlist()<CR>
 
 " set text wrapping toggles
 nmap <silent> ,w :set invwrap<CR>:set wrap?<CR>
@@ -459,7 +459,7 @@ let g:errormarker_disablemappings = 1 "errormarker: no mappings
 "  MRU Plugin Settings
 "-----------------------------------------------------------------------------
 "default: move to the first non-ws char on next line
-nmap <silent> <C-M> :MRU<CR> 
+"nmap <silent> <C-M> :MRU<CR> 
 
 "-----------------------------------------------------------------------------
 " zencoding plugin stuff
@@ -538,7 +538,12 @@ augroup END
 
 augroup CoffeeScript
     au!
-    au BufEnter *.coffee map <F5> :CoffeeRun<CR>
+    au BufEnter *.coffee map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
+augroup END
+
+augroup WebDev
+    au!
+    au BufEnter *php map <C-Enter> :silent ! start http://localhost/boxdrop<CR>
 augroup END
 
 "let coffee_make_options = '--bare'
