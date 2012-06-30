@@ -65,9 +65,9 @@ if strlen($WINDIR)
         endif
     else " probably portable gvim; find the 'settings' folder
         let s:vimfiles=TrimDirs(expand("$VIM"),2).'Data\settings\vimfiles'
-        echo s:vimfiles
         if isdirectory( s:vimfiles ) 
-            let $MYVIMRC=s:vimfiles.'\.vimrc'
+            let $HOME=s:vimfiles
+            let $MYVIMRC=$HOME.'/.vimrc'
             let &runtimepath=&runtimepath.",".s:vimfiles
             let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\snipmate\after'
         else
@@ -289,7 +289,7 @@ imap <S-Enter> <Esc>A;<Enter>
 "nmap <silent> ,p "+gP
 
 " need an easy way to paste from global clipboard
-imap <silent> <C-V><C-V> <Esc>"+gP
+imap <silent> <C-V><C-V> <Esc>"+gp
 
 " cd to the directory containing the file in the buffer
 nmap <silent> ,cd :lcd %:h<CR>
