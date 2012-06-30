@@ -456,10 +456,11 @@ let g:localvimrc_sandbox = 0 "local vimrcs are of little use in sandbox mode
 let g:errormarker_disablemappings = 1 "errormarker: no mappings
 
 "-----------------------------------------------------------------------------
-"  MRU Plugin Settings
+" MRU Plugin Settings
 "-----------------------------------------------------------------------------
-"default: move to the first non-ws char on next line
-"nmap <silent> <C-M> :MRU<CR> 
+" strangely, cannot map <C-M>, bc. will open MRU whenever I press Enter
+map <leader>f :MRU<CR>
+autocmd VimEnter * MRU
 
 "-----------------------------------------------------------------------------
 " zencoding plugin stuff
