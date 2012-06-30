@@ -64,11 +64,12 @@ if strlen($WINDIR)
             let $PATH=$PATH.';C:/pdev/bin'
         endif
     else " probably portable gvim; find the 'settings' folder
-        let s:settings_dir=TrimDirs(expand("$VIM"),2)."Data/settings"
-        if isdirectory( s:settings_dir ) 
-            let $MYVIMRC=s:settings_dir.'/.vimrc'
-            let &runtimepath=&runtimepath.",".s:settings_dir.'/vimfiles'
-            let &runtimepath=&runtimepath.",".s:settings_dir.'/vimfiles/bundle/snipmate/after'
+        let s:vimfiles=TrimDirs(expand("$VIM"),2).'Data\settings\vimfiles'
+        echo s:vimfiles
+        if isdirectory( s:vimfiles ) 
+            let $MYVIMRC=s:vimfiles.'\.vimrc'
+            let &runtimepath=&runtimepath.",".s:vimfiles
+            let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\snipmate\after'
         else
             echo "Warning: assumed this is PortableGVim, but ".s:settings_dir." is not a folder."
         endif
