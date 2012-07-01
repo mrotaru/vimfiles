@@ -61,9 +61,6 @@
 [submodule "bundle/zencoding"]
 	path = bundle/zencoding
 	url = git://github.com/mattn/zencoding-vim.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = git@github.com:mihai-rotaru/snipmate.vim.git
 [submodule "bundle/xmlstar-val-compiler"]
 	path = bundle/xmlstar-val-compiler
 	url = git@github.com:mihai-rotaru/xmlstar-val-compiler.git
