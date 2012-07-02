@@ -79,3 +79,6 @@
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
 	url = git@github.com:mihai-rotaru/snipmate.git
+[submodule "plugin_data/snipmate/default-snippets"]
+	path = plugin_data/snipmate/default-snippets
+	url = https://github.com/honza/snipmate-snippets.git
