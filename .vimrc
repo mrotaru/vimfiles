@@ -90,6 +90,7 @@ if strlen($WINDIR)
         if isdirectory( 'C:/pdev/bin' )
             let $PATH=$PATH.';C:/pdev/bin'
         endif
+
     else " probably portable gvim; find the 'settings' folder
         let s:vimfiles=TrimDirs(expand("$VIM"),2).'Data\settings\vimfiles'
         if isdirectory( s:vimfiles ) 
@@ -104,6 +105,7 @@ if strlen($WINDIR)
             echo "Warning: assumed this is PortableGVim, but ".s:settings_dir." is not a folder."
         endif
     endif
+
 else " most likely Linux
     let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles'
     let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles/bundle/snipmate/after'
@@ -528,6 +530,11 @@ nmap <silent> ,ok :FSAbove<CR>
 nmap <silent> ,oK :FSSplitAbove<CR>
 nmap <silent> ,oj :FSBelow<CR>
 nmap <silent> ,oJ :FSSplitBelow<CR>
+
+"-----------------------------------------------------------------------------
+" Other Plungins
+"-----------------------------------------------------------------------------
+let g:ackprg="perl C:/pdev/bin/ack"
 
 "-----------------------------------------------------------------------------
 " Java highlighting
