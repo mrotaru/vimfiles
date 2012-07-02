@@ -534,7 +534,7 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 "-----------------------------------------------------------------------------
 " Other Plungins
 "-----------------------------------------------------------------------------
-let g:ackprg="perl C:/pdev/bin/ack"
+let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
 
 "-----------------------------------------------------------------------------
 " Java highlighting
