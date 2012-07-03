@@ -1,0 +1,46 @@
+snippet tem
+	<xsl:template match="${1}">
+		${2}
+	</xsl:template>
+snippet for
+	<xsl:for-each select="${1}">
+		${2}
+	</xsl:for-each>
+snippet choose
+	<xsl:choose>
+		<xsl:when test="${1}">
+			${2}
+		</xsl:when>
+		<xsl:otherwise>
+			${3}
+		</xsl:otherwise>
+	</xsl:choose>
+snippet if
+	<xsl:if test="${1}">
+	    ${2}
+	</xsl:if>
+snippet when
+	<xsl:when test="${1}">
+	</xsl:when>
+snippet val
+	<xsl:value-of select="${1}"/>
+snippet xsll
+	<xsl:${1:asd} >
+		${2}
+	</xsl:$1>
+snippet xsl
+	<xsl:${1}/>
+snippet cpo
+	<xsl:copy-of select="${1}"/>
+snippet cp
+	<xsl:copy>
+		${1}
+	</xsl:copy>
+snippet var
+	<xsl:variable name="${1}" select="${2}$1"/>
+snippet txt
+	<xsl:text>${1}</xsl:text>
+snippet att
+	<xsl:attribute name="${1}">
+		${2}
+	</xsl:attribute>
