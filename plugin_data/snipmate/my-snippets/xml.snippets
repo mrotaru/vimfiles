@@ -1,0 +1,51 @@
+snippet xml
+	<?xml version="1.0" encoding="utf-8"?>
+	<${1:root}>
+		${2}
+	</$1>
+snippet blog_post
+	<?xml version="1.0" encoding="utf-8"?>
+	<blog_post>
+		<head>
+			<title>${1}</title>
+			<author>
+				<name>Mihai</name>
+				<surname>Rotaru</surname>
+			</author>
+			<date>1 Dec 2011</date>
+			<tags>
+				<tag>XML</tag>
+				<tag></tag>
+			</tags>
+		</head>
+
+		<body>
+			${2}
+		</body>
+
+	</blog_post>		
+snippet ques
+	<question>
+		<body>
+			${1}
+		</body>
+		<selectedanswer>${2}</selectedanswer>
+		<options>
+			<option>${3}</option>
+			<option>${4}</option>
+			<option>${5}</option>
+			<option>${6}</option>
+		</options>
+		
+		<after>
+			${7}
+		</after>
+		
+		<answer>
+			${8}
+		</answer>
+	</question>
+snippet p
+	<p>
+		${1}
+	</p>
