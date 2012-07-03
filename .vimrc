@@ -2,8 +2,11 @@ set nocompatible
 "-----------------------------------------------------------------------------
 " FUNCTIONS {{{
 "-----------------------------------------------------------------------------
-" looks for the n'th needle in the haystack, searching from the end
-" if haystack contains no needles, returns -1
+
+" Returns the (zero-indexed) position of the `n`-th occurence of `needle` in
+" `haystack`, counting from the end of the string.
+" If `haystack` contains no `needle`s, returns -1
+"-----------------------------------------------------------------------------
 function! NthFromTheEnd( haystack, needle, n )
     let k=len( a:haystack )-1
     let needles_sofar = 0
@@ -22,6 +25,26 @@ function! NthFromTheEnd( haystack, needle, n )
     endif
 endfunction
 
+" Returns the (zero-indexed) position of the `n`-th occurence of `needle` in
+" `haystack`, counting from the start of the string.
+" If `haystack` contains no `needle`s, returns -1
+"-----------------------------------------------------------------------------
+function! NthFromTheStart( haystack, needle, n )
+    let needles_sofar = 0
+    let k=0
+    while k < len( a:haystack ) && needles_sofar != a:n
+        if a:haystack[k] == a:needle
+            let needles_sofar=needles_sofar+1
+        endif
+        let k=k+1
+    endwhile
+    if needles_sofar == a:n
+        return k-1
+    else 
+        return -1
+    endif
+endfunction
+
 " determine path separator
 if has('win16') || has('win32') || has ('win95') || has('win64')
     let s:path_separator = '\'
@@ -34,6 +57,34 @@ function! TrimDirs( path, num_dirs )
     let sep_index=NthFromTheEnd( a:path, s:path_separator, a:num_dirs )
     if sep_index != -1
         return strpart( a:path, 0, sep_index + 1 )
+    endif
+endfunction
+
+" TODO: needs special handling on linux
+function! TrimDirsFromStart( path, num_dirs )
+    let sep_index=NthFromTheStart( a:path, s:path_separator, a:num_dirs )
+    if sep_index != -1
+        return strpart( a:path, sep_index+1 )
+    endif
+endfunction
+
+" NOTE: Windows-only
+function! OpenInBrowser()
+    let l:url=""
+    if expand('%:e') == 'php'
+        let l:trimmed = TrimDirsFromStart( expand('%:p'), g:locahost_cutoff )
+        if exists('g:locahost_cutoff')
+            let l:url='http://localhost/' . l:trimmed
+        else
+            let l:url='http://localhost'
+        endif
+        let l:url=substitute( l:url, '\','/','g' )
+        let l:cmd = 'silent ! start '.l:url
+        execute l:cmd
+    elseif expand('%:e') =~ 'x\?html'
+        let l:cmd = 'silent ! start file:///'.expand('%:p')
+        let l:cmd=substitute( l:cmd, '\','/','g' )
+        execute l:cmd
     endif
 endfunction
 
@@ -392,7 +443,7 @@ noremap <silent> <C-0> <C-W>>
 set wildcharm=<C-Z>
 nnoremap <F10> :b <C-Z>
 "nnoremap <C-M> :buffers<CR>:buffer<Space>
-command -nargs=? -bang  Buffer  if <q-args> != '' | exe 'buffer '.<q-args> | else | ls<bang> | let buffer_nn=input('Which one: ') | if buffer_nn != '' | exe buffer_nn != 0 ? 'buffer '.buffer_nn : 'enew' | endif | endif
+command! -nargs=? -bang  Buffer  if <q-args> != '' | exe 'buffer '.<q-args> | else | ls<bang> | let buffer_nn=input('Which one: ') | if buffer_nn != '' | exe buffer_nn != 0 ? 'buffer '.buffer_nn : 'enew' | endif | endif
 noremap <silent> ,bd :bd<CR>
 
 " Map CTRL-E to do what ',' used to do
@@ -600,7 +651,7 @@ if has( "autocmd" )
 
     augroup WebDev
         au!
-        au BufEnter *php map <C-Enter> :silent ! start http://localhost/boxdrop<CR>
+        au BufEnter *php,*html map <C-Enter> :call OpenInBrowser()<CR>
     augroup END
 
     "let coffee_make_options = '--bare'
