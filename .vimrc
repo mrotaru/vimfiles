@@ -24,14 +24,14 @@ endfunction
 
 " determine path separator
 if has('win16') || has('win32') || has ('win95') || has('win64')
-    let s:path_seperator = '\'
+    let s:path_separator = '\'
 else 
-    let s:path_seperator = '/'
+    let s:path_separator = '/'
 endif
 
 " returns 'path' with 'num_dirs' removed, WITH a trailing path separator
 function! TrimDirs( path, num_dirs )
-    let sep_index=NthFromTheEnd( a:path, s:path_seperator, a:num_dirs )
+    let sep_index=NthFromTheEnd( a:path, s:path_separator, a:num_dirs )
     if sep_index != -1
         return strpart( a:path, 0, sep_index + 1 )
     endif
@@ -457,16 +457,20 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which
 "-----------------------------------------------------------------------------
 " set globals pointing to 'bundle' and plugin_data folders {{{
 "-----------------------------------------------------------------------------
-let g:plugin_data = expand('~') . '\vimfiles\plugin_data'
-let g:plugin_data = substitute( g:plugin_data, '\', s:path_seperator, 'g')
+let s:pd = s:path_separator
+let g:plugin_data = s:vimfiles . '\plugin_data'
+let g:plugin_data = substitute( g:plugin_data, '\', s:pd, 'g')
 " where are the plugins ? ( with pathogen.vim, usually the 'bundle' folder )
-let g:plugins_folder = expand('~') . '\vimfiles\bundle'
-let g:plugins_folder = substitute( g:plugins_folder, '\', s:path_seperator, 'g')
+let g:plugins_folder = s:vimfiles . '\bundle'
+let g:plugins_folder = substitute( g:plugins_folder, '\', s:pd, 'g')
 
-let g:marvim_store = g:plugin_data . s:path_seperator . 'marvim'
+let g:marvim_store = g:plugin_data . s:pd . 'marvim'
 
 let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
-let g:snippets_dir = g:snippets_dir . ',' . g:plugin_data . s:path_seperator . 'snipmate' . s:path_seperator . 'snippets' . s:path_seperator
+let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data . 
+            \s:pd . 'snipmate' . s:pd . 'default-snippets' . s:pd . 'snippets'
+let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data . 
+            \s:pd . 'snipmate' . s:pd . 'my-snippets'
 " }}}
 
 "-----------------------------------------------------------------------------
@@ -660,4 +664,3 @@ if has("gui_running")
     endif
 endif
 :nohls
-
