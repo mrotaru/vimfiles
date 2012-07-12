@@ -158,8 +158,11 @@ if strlen($WINDIR)
     endif
 
 else " most likely Linux
-    let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles'
-    let &runtimepath=&runtimepath.",".expand("$HOME").'/vimfiles/bundle/snipmate/after'
+    let s:vimfiles=expand("$HOME").'/vimfiles'
+    if isdirectory( s:vimfiles )
+        let &runtimepath=&runtimepath.",".s:vimfiles
+        let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/snipmate/after'
+    endif
 endif
 "}}}
 
