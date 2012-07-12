@@ -592,7 +592,11 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 "-----------------------------------------------------------------------------
 " Other Plungins
 "-----------------------------------------------------------------------------
-let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
+if strlen($WINDIR)
+    let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
+else
+    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+endif
 
 "-----------------------------------------------------------------------------
 " Java highlighting
