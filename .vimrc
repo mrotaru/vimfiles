@@ -614,8 +614,8 @@ if has( "autocmd" )
         au!
 
         " C++ headers ( h or hpp ) are kept in the same folder as the .cpp files
-        au BufEnter *.h,*.hpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
-        au BufEnter *.c,*.cpp let b:fswitchlocs = 'rel:.' | let b:fswitchdst = 'cpp'
+        au BufEnter *.h,*.hpp let b:fswitchlocs = 'rel:.,./src,../src' | let b:fswitchdst = 'cpp'
+        au BufEnter *.c,*.cpp let b:fswitchlocs = 'rel:.,./include,../include' | let b:fswitchdst = 'h'
     augroup END
 
     let g:compiler_gcc_ingore_unmatched_lines=1
