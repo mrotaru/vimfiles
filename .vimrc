@@ -95,9 +95,11 @@ function! FixQuotes()
     if &gdefault
         %s/“/"/
         %s/”/"/
+        %s/¿/'/
     else
         %s/“/"/g
         %s/”/"/g
+        %s/¿/'/g
     endif
 endfunction
 
