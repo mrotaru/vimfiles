@@ -93,11 +93,13 @@ endfunction
 " ------------------------------------------------------------------------------
 function! FixQuotes()
     if &gdefault
-        %s/“/"/
-        %s/”/"/
+        %s/“/"/e
+        %s/”/"/e
+        %s/’/'/e
     else
-        %s/“/"/g
-        %s/”/"/g
+        %s/“/"/ge
+        %s/”/"/ge
+        %s/’/'/ge
     endif
 endfunction
 
