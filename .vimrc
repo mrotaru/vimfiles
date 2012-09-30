@@ -629,6 +629,8 @@ if has( "autocmd" )
 
     let g:compiler_gcc_ingore_unmatched_lines=1
 
+    autocmd BufRead,BufNewFile wscript set filetype=python
+
     augroup autoclose_group
         au!
         au BufEnter *.wiki let g:disable_autoclose = 1
