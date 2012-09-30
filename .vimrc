@@ -642,6 +642,7 @@ if has( "autocmd" )
     augroup vimfiles
         au!
         au BufEnter *.vim nmap <f5> :source %<CR>
+    augroup END
 
     augroup xml
         au!
