@@ -130,7 +130,7 @@ if strlen($WINDIR)
             let $HOME=s:homedir
             let $MYVIMRC=s:homedir.'/.vimrc'
             let &runtimepath=&runtimepath.",".s:homedir.'/vimfiles'
-            let &runtimepath=&runtimepath.",".s:homedir.'/vimfiles/bundle/snipmate/after'
+            let &runtimepath=&runtimepath.",".s:homedir.'/vimfiles/bundle/vundle'
         endif
 
         let s:mingwdir='C:/pdev/MinGW'
@@ -153,7 +153,7 @@ if strlen($WINDIR)
             endif
             let $MYVIMRC=s:vimfiles.'/.vimrc'
             let &runtimepath=&runtimepath.",".s:vimfiles
-            let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\snipmate\after'
+            let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\vundle'
         else
             echo "Warning: assumed this is PortableGVim, but ".s:settings_dir." is not a folder."
         endif
@@ -163,7 +163,7 @@ else " most likely Linux
     let s:vimfiles=expand("$HOME").'/vimfiles'
     if isdirectory( s:vimfiles )
         let &runtimepath=&runtimepath.",".s:vimfiles
-        let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/snipmate/after'
+        let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/vundle'
     endif
 endif
 "}}}
@@ -175,11 +175,11 @@ endif
 filetype off 
 autocmd!
 
+set rtp+=~/.vim/bundle/vundle/
 "-----------------------------------------------------------------------------
-" pathogen plugin stuff
+" Vundle
 "-----------------------------------------------------------------------------
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+call vundle#rc()
 
 "-----------------------------------------------------------------------------
 " Global Stuff
@@ -522,6 +522,139 @@ set foldmethod=marker " detect triple-{ style fold markers
 " }}}
 
 "-----------------------------------------------------------------------------
+" Vundle bundles
+"-----------------------------------------------------------------------------
+"Bundle 'gmarik/vundle'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-surround'
+Bundle 'kien/ctrlp.vim'
+Bundle 'matchit.zip'
+
+" General Programming
+" -------------------
+"Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-fugitive'
+"Bundle 'mattn/webapi-vim'
+"Bundle 'mattn/gist-vim'
+"Bundle 'scrooloose/nerdcommenter'
+Bundle 'hrp/EnhancedCommentify'
+"Bundle 'godlygeek/tabular'
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
+
+" Snippets & AutoComplete
+" -----------------------
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle 'honza/snipmate-snippets'
+
+" PHP
+" ---
+Bundle 'spf13/PIV'
+
+" Python
+" ------
+" Pick either python-mode or pyflakes & pydoc
+"Bundle 'klen/python-mode'
+"Bundle 'python.vim'
+"Bundle 'python_match.vim'
+"Bundle 'pythoncomplete'
+
+" Javascript
+" ----------
+Bundle 'leshill/vim-json'
+Bundle 'groenewege/vim-less'
+Bundle 'pangloss/vim-javascript'
+Bundle 'briancollins/vim-jst'
+Bundle 'kchmck/vim-coffee-script'
+
+" HTML
+" ----
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'skammer/vim-css-color'
+Bundle 'mattn/zencoding-vim'
+
+" Misc
+" ----
+Bundle 'tpope/vim-markdown'
+"Bundle 'spf13/vim-preview'
+"Bundle 'tpope/vim-cucumber'
+"Bundle 'quentindecock/vim-cucumber-align-pipes'
+"Bundle 'Puppet-Syntax-Highlighting'
+
+Bundle 'vim-scripts/localvimrc'
+Bundle 'mihai-rotaru/vim-status-quo'
+ Bundle 'gmarik/vundle'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-surround'
+Bundle 'kien/ctrlp.vim'
+Bundle 'matchit.zip'
+
+" General Programming
+" -------------------
+"Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-fugitive'
+"Bundle 'mattn/webapi-vim'
+"Bundle 'mattn/gist-vim'
+"Bundle 'scrooloose/nerdcommenter'
+Bundle 'hrp/EnhancedCommentify'
+"Bundle 'godlygeek/tabular'
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
+
+" Snippets & AutoComplete
+" -----------------------
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle 'honza/snipmate-snippets'
+
+" PHP
+" ---
+Bundle 'spf13/PIV'
+
+" Python
+" ------
+" Pick either python-mode or pyflakes & pydoc
+"Bundle 'klen/python-mode'
+"Bundle 'python.vim'
+"Bundle 'python_match.vim'
+"Bundle 'pythoncomplete'
+
+" Javascript
+" ----------
+Bundle 'leshill/vim-json'
+Bundle 'groenewege/vim-less'
+Bundle 'pangloss/vim-javascript'
+Bundle 'briancollins/vim-jst'
+Bundle 'kchmck/vim-coffee-script'
+
+" HTML
+" ----
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'skammer/vim-css-color'
+Bundle 'mattn/zencoding-vim'
+
+" Misc
+" ----
+Bundle 'tpope/vim-markdown'
+"Bundle 'spf13/vim-preview'
+"Bundle 'tpope/vim-cucumber'
+"Bundle 'quentindecock/vim-cucumber-align-pipes'
+"Bundle 'Puppet-Syntax-Highlighting'
+
+Bundle 'vim-scripts/localvimrc'
+Bundle 'mihai-rotaru/vim-status-quo'
+Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
+
+"-----------------------------------------------------------------------------
 " set globals pointing to 'bundle' and plugin_data folders {{{
 "-----------------------------------------------------------------------------
 let s:pd = s:path_separator
@@ -576,7 +709,6 @@ let g:errormarker_disablemappings = 1 "errormarker: no mappings
 "-----------------------------------------------------------------------------
 " strangely, cannot map <C-M>, bc. will open MRU whenever I press Enter
 map <leader>f :MRU<CR>
-autocmd VimEnter * MRU
 
 "-----------------------------------------------------------------------------
 " zencoding plugin stuff
