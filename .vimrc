@@ -1,4 +1,6 @@
 set nocompatible
+filetype off 
+
 "-----------------------------------------------------------------------------
 " FUNCTIONS {{{
 "-----------------------------------------------------------------------------
@@ -168,18 +170,154 @@ else " most likely Linux
 endif
 "}}}
 
+echo "vimfiles: " . s:vimfiles
+
 if exists("$CODE")
     cd $CODE
 endif
 
-filetype off 
 autocmd!
 
-set rtp+=~/.vim/bundle/vundle/
 "-----------------------------------------------------------------------------
 " Vundle
 "-----------------------------------------------------------------------------
 call vundle#rc()
+
+"-----------------------------------------------------------------------------
+" Vundle bundles {{{
+"-----------------------------------------------------------------------------
+"Bundle 'gmarik/vundle'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-surround'
+Bundle 'kien/ctrlp.vim'
+Bundle 'matchit.zip'
+
+" General Programming
+" -------------------
+"Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-fugitive'
+"Bundle 'mattn/webapi-vim'
+"Bundle 'mattn/gist-vim'
+"Bundle 'scrooloose/nerdcommenter'
+Bundle 'hrp/EnhancedCommentify'
+"Bundle 'godlygeek/tabular'
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
+
+" Snippets & AutoComplete
+" -----------------------
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle 'honza/snipmate-snippets'
+
+" PHP
+" ---
+Bundle 'spf13/PIV'
+
+" Python
+" ------
+" Pick either python-mode or pyflakes & pydoc
+"Bundle 'klen/python-mode'
+"Bundle 'python.vim'
+"Bundle 'python_match.vim'
+"Bundle 'pythoncomplete'
+
+" Javascript
+" ----------
+Bundle 'leshill/vim-json'
+Bundle 'groenewege/vim-less'
+Bundle 'pangloss/vim-javascript'
+Bundle 'briancollins/vim-jst'
+Bundle 'kchmck/vim-coffee-script'
+
+" HTML
+" ----
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'skammer/vim-css-color'
+Bundle 'mattn/zencoding-vim'
+Bundle 'groenewege/im-less'
+
+" Misc
+" ----
+Bundle 'tpope/vim-markdown'
+"Bundle 'spf13/vim-preview'
+"Bundle 'tpope/vim-cucumber'
+"Bundle 'quentindecock/vim-cucumber-align-pipes'
+"Bundle 'Puppet-Syntax-Highlighting'
+
+Bundle 'vim-scripts/localvimrc'
+Bundle 'mihai-rotaru/vim-status-quo'
+ Bundle 'gmarik/vundle'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-surround'
+Bundle 'kien/ctrlp.vim'
+Bundle 'matchit.zip'
+
+" General Programming
+" -------------------
+"Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-fugitive'
+"Bundle 'mattn/webapi-vim'
+"Bundle 'mattn/gist-vim'
+"Bundle 'scrooloose/nerdcommenter'
+Bundle 'hrp/EnhancedCommentify'
+"Bundle 'godlygeek/tabular'
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
+
+" Snippets & AutoComplete
+" -----------------------
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle 'honza/snipmate-snippets'
+
+" PHP
+" ---
+Bundle 'spf13/PIV'
+
+" Python
+" ------
+" Pick either python-mode or pyflakes & pydoc
+"Bundle 'klen/python-mode'
+"Bundle 'python.vim'
+"Bundle 'python_match.vim'
+"Bundle 'pythoncomplete'
+
+" Javascript
+" ----------
+Bundle 'leshill/vim-json'
+Bundle 'groenewege/vim-less'
+Bundle 'pangloss/vim-javascript'
+Bundle 'briancollins/vim-jst'
+Bundle 'kchmck/vim-coffee-script'
+
+" HTML
+" ----
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'skammer/vim-css-color'
+Bundle 'mattn/zencoding-vim'
+
+" Misc
+" ----
+Bundle 'tpope/vim-markdown'
+"Bundle 'spf13/vim-preview'
+"Bundle 'tpope/vim-cucumber'
+"Bundle 'quentindecock/vim-cucumber-align-pipes'
+"Bundle 'Puppet-Syntax-Highlighting'
+
+Bundle 'vim-scripts/localvimrc'
+Bundle 'mihai-rotaru/vim-status-quo'
+Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
+
+" }}} Vundle bundles
 
 "-----------------------------------------------------------------------------
 " Global Stuff
@@ -187,8 +325,7 @@ call vundle#rc()
 
 " Set filetype stuff to on
 filetype on
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 " ignore me some filez
 set wildignore=*.lnk,*.o
@@ -521,138 +658,6 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which
 set foldmethod=marker " detect triple-{ style fold markers
 " }}}
 
-"-----------------------------------------------------------------------------
-" Vundle bundles
-"-----------------------------------------------------------------------------
-"Bundle 'gmarik/vundle'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'matchit.zip'
-
-" General Programming
-" -------------------
-"Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-"Bundle 'mattn/webapi-vim'
-"Bundle 'mattn/gist-vim'
-"Bundle 'scrooloose/nerdcommenter'
-Bundle 'hrp/EnhancedCommentify'
-"Bundle 'godlygeek/tabular'
-if executable('ctags')
-    Bundle 'majutsushi/tagbar'
-endif
-
-" Snippets & AutoComplete
-" -----------------------
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
-Bundle 'honza/snipmate-snippets'
-
-" PHP
-" ---
-Bundle 'spf13/PIV'
-
-" Python
-" ------
-" Pick either python-mode or pyflakes & pydoc
-"Bundle 'klen/python-mode'
-"Bundle 'python.vim'
-"Bundle 'python_match.vim'
-"Bundle 'pythoncomplete'
-
-" Javascript
-" ----------
-Bundle 'leshill/vim-json'
-Bundle 'groenewege/vim-less'
-Bundle 'pangloss/vim-javascript'
-Bundle 'briancollins/vim-jst'
-Bundle 'kchmck/vim-coffee-script'
-
-" HTML
-" ----
-Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'skammer/vim-css-color'
-Bundle 'mattn/zencoding-vim'
-
-" Misc
-" ----
-Bundle 'tpope/vim-markdown'
-"Bundle 'spf13/vim-preview'
-"Bundle 'tpope/vim-cucumber'
-"Bundle 'quentindecock/vim-cucumber-align-pipes'
-"Bundle 'Puppet-Syntax-Highlighting'
-
-Bundle 'vim-scripts/localvimrc'
-Bundle 'mihai-rotaru/vim-status-quo'
- Bundle 'gmarik/vundle'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'matchit.zip'
-
-" General Programming
-" -------------------
-"Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-"Bundle 'mattn/webapi-vim'
-"Bundle 'mattn/gist-vim'
-"Bundle 'scrooloose/nerdcommenter'
-Bundle 'hrp/EnhancedCommentify'
-"Bundle 'godlygeek/tabular'
-if executable('ctags')
-    Bundle 'majutsushi/tagbar'
-endif
-
-" Snippets & AutoComplete
-" -----------------------
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
-Bundle 'honza/snipmate-snippets'
-
-" PHP
-" ---
-Bundle 'spf13/PIV'
-
-" Python
-" ------
-" Pick either python-mode or pyflakes & pydoc
-"Bundle 'klen/python-mode'
-"Bundle 'python.vim'
-"Bundle 'python_match.vim'
-"Bundle 'pythoncomplete'
-
-" Javascript
-" ----------
-Bundle 'leshill/vim-json'
-Bundle 'groenewege/vim-less'
-Bundle 'pangloss/vim-javascript'
-Bundle 'briancollins/vim-jst'
-Bundle 'kchmck/vim-coffee-script'
-
-" HTML
-" ----
-Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'skammer/vim-css-color'
-Bundle 'mattn/zencoding-vim'
-
-" Misc
-" ----
-Bundle 'tpope/vim-markdown'
-"Bundle 'spf13/vim-preview'
-"Bundle 'tpope/vim-cucumber'
-"Bundle 'quentindecock/vim-cucumber-align-pipes'
-"Bundle 'Puppet-Syntax-Highlighting'
-
-Bundle 'vim-scripts/localvimrc'
-Bundle 'mihai-rotaru/vim-status-quo'
-Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
 
 "-----------------------------------------------------------------------------
 " set globals pointing to 'bundle' and plugin_data folders {{{
@@ -705,10 +710,10 @@ let g:localvimrc_sandbox = 0 "local vimrcs are of little use in sandbox mode
 let g:errormarker_disablemappings = 1 "errormarker: no mappings
 
 "-----------------------------------------------------------------------------
-" MRU Plugin Settings
+" ctrlp plugin settings
 "-----------------------------------------------------------------------------
-" strangely, cannot map <C-M>, bc. will open MRU whenever I press Enter
-map <leader>f :MRU<CR>
+let g:ctrlp_working_path_mode = 'ra'
+map <leader>f :CtrlPMRU<CR>
 
 "-----------------------------------------------------------------------------
 " zencoding plugin stuff
@@ -807,6 +812,7 @@ if has( "autocmd" )
     augroup WebDev
         au!
         au BufEnter *php,*html map <C-Enter> :call OpenInBrowser()<CR>
+        au BufEnter *html map <C-F> :%!tidy -q -i --show-errors 0<CR>q
     augroup END
 
     "let coffee_make_options = '--bare'
@@ -857,7 +863,7 @@ iab Fone      Phone
 "-----------------------------------------------------------------------------
 if has("gui_running")
     if has("win32")
-        set guifont=Envy_Code_R:h10
+        set guifont=Consolas:h11
     endif
     set background=light
     colorscheme jellybeans
