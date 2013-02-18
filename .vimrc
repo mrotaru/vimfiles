@@ -496,6 +496,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 let mapleader = ","
 nmap mk :make<CR>
 
+nnoremap gf :vertical wincmd f<CR>
+
 " compiling
 nmap <silent> <F11> :cprevious<CR>
 nmap <silent> <F12> :cnext<CR>
@@ -863,7 +865,7 @@ iab Fone      Phone
 "-----------------------------------------------------------------------------
 if has("gui_running")
     if has("win32")
-        set guifont=Consolas:h11
+        set guifont=Envy_Code_R:h10
     endif
     set background=light
     colorscheme jellybeans
