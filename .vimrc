@@ -598,6 +598,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'mihai-rotaru/vim-status-quo'
 Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
+" end vundle bundles }}}
 
 "-----------------------------------------------------------------------------
 " set globals pointing to 'bundle' and plugin_data folders {{{
