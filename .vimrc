@@ -121,8 +121,20 @@ endfunction
 "-----------------------------------------------------------------------------
 " pdev stuff {{{
 "-----------------------------------------------------------------------------
+
+" Controls which directory to use as the $HOME
+" 0: default behaviour
+" 1: if MinGW is present, use <MINGW>/msys/1.0/home/<USERNAME> as home
+" 2: 
+let s:use_mingw_home = 0
+
 if strlen($WINDIR)
-    if( expand("$MSYSTEM") == "MINGW32" ) " run from within an MSYS environment
+    j
+    if isdirectory( 'C:/pdev/bin' )
+        let $PATH=$PATH.';C:/pdev/bin'
+    endif
+
+    if( expand("$MSYSTEM") == "MINGW32" && s:use_mingw_home ) " run from within an MSYS environment
         let s:homedir='C:/pdev/MinGW/msys/1.0/home/'.$USERNAME
         if !isdirectory( s:homedir )
             echo "Cannot find home directory: ".s:homedir." is not a folder."
@@ -140,17 +152,10 @@ if strlen($WINDIR)
             let $PATH=$PATH.";".s:mingwdir.'/msys/1.0/bin;'.s:mingwdir.'/bin;C:/pdev/bin'
         endif
 
-        if isdirectory( 'C:/pdev/bin' )
-            let $PATH=$PATH.';C:/pdev/bin'
-        endif
-
     else " probably portable gvim; find the 'settings' folder
         let s:vimfiles=TrimDirs(expand("$VIM"),2).'Data\settings\vimfiles'
         if isdirectory( s:vimfiles ) 
-            let s:homedir='C:/pdev/MinGW/msys/1.0/home/'.$USERNAME
-            if isdirectory( s:homedir )
-                let $HOME=s:homedir
-            endif
+            let $HOME=s:vimfiles
             let $MYVIMRC=s:vimfiles.'/.vimrc'
             let &runtimepath=&runtimepath.",".s:vimfiles
             let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\vundle'
@@ -166,6 +171,8 @@ else " most likely Linux
         let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/vundle'
     endif
 endif
+echo "vimfiles: " . s:vimfiles
+let s:vundle_path = s:vimfiles . '\bundle\vundle'
 "}}}
 
 if exists("$CODE")
@@ -175,11 +182,14 @@ endif
 filetype off 
 autocmd!
 
-set rtp+=~/.vim/bundle/vundle/
+"let &runtimepath=&runtimepath . "," . s:vundle_path
+"echo "bundle: " . s:vundle_path
+
 "-----------------------------------------------------------------------------
 " Vundle
 "-----------------------------------------------------------------------------
 call vundle#rc()
+Bundle 'gmarik/vundle'
 
 "-----------------------------------------------------------------------------
 " Global Stuff
@@ -522,73 +532,8 @@ set foldmethod=marker " detect triple-{ style fold markers
 " }}}
 
 "-----------------------------------------------------------------------------
-" Vundle bundles
+" Vundle bundles {{{
 "-----------------------------------------------------------------------------
-"Bundle 'gmarik/vundle'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'matchit.zip'
-
-" General Programming
-" -------------------
-"Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-"Bundle 'mattn/webapi-vim'
-"Bundle 'mattn/gist-vim'
-"Bundle 'scrooloose/nerdcommenter'
-Bundle 'hrp/EnhancedCommentify'
-"Bundle 'godlygeek/tabular'
-if executable('ctags')
-    Bundle 'majutsushi/tagbar'
-endif
-
-" Snippets & AutoComplete
-" -----------------------
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
-Bundle 'honza/snipmate-snippets'
-
-" PHP
-" ---
-Bundle 'spf13/PIV'
-
-" Python
-" ------
-" Pick either python-mode or pyflakes & pydoc
-"Bundle 'klen/python-mode'
-"Bundle 'python.vim'
-"Bundle 'python_match.vim'
-"Bundle 'pythoncomplete'
-
-" Javascript
-" ----------
-Bundle 'leshill/vim-json'
-Bundle 'groenewege/vim-less'
-Bundle 'pangloss/vim-javascript'
-Bundle 'briancollins/vim-jst'
-Bundle 'kchmck/vim-coffee-script'
-
-" HTML
-" ----
-Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'skammer/vim-css-color'
-Bundle 'mattn/zencoding-vim'
-
-" Misc
-" ----
-Bundle 'tpope/vim-markdown'
-"Bundle 'spf13/vim-preview'
-"Bundle 'tpope/vim-cucumber'
-"Bundle 'quentindecock/vim-cucumber-align-pipes'
-"Bundle 'Puppet-Syntax-Highlighting'
-
-Bundle 'vim-scripts/localvimrc'
-Bundle 'mihai-rotaru/vim-status-quo'
- Bundle 'gmarik/vundle'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'scrooloose/nerdtree'
