@@ -96,10 +96,12 @@ function! FixQuotes()
         %s/“/"/e
         %s/”/"/e
         %s/’/'/e
+        %s/¿/'/e
     else
         %s/“/"/ge
         %s/”/"/ge
         %s/’/'/ge
+        %s/¿/'/ge
     endif
 endfunction
 
@@ -171,7 +173,7 @@ else " most likely Linux
         let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/vundle'
     endif
 endif
-echo "vimfiles: " . s:vimfiles
+"echo "vimfiles: " . s:vimfiles
 let s:vundle_path = s:vimfiles . '\bundle\vundle'
 "}}}
 
@@ -557,11 +559,12 @@ endif
 " -----------------------
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
-Bundle 'honza/snipmate-snippets'
+Bundle 'honza/vim-snippets'
 
 " PHP
 " ---
 Bundle 'spf13/PIV'
+Bundle 'joonty/vdebug.git'
 
 " Python
 " ------
@@ -594,6 +597,7 @@ Bundle 'tpope/vim-markdown'
 "Bundle 'quentindecock/vim-cucumber-align-pipes'
 "Bundle 'Puppet-Syntax-Highlighting'
 
+Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'mihai-rotaru/vim-status-quo'
 Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
@@ -679,7 +683,7 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 " Use honza's snippets.
 let g:neosnippet#snippets_directory=s:vimfiles . '\.vim\bundle\snipmate-snippets\snippets'
 
-echom g:neosnippet#snippets_directory
+"echom g:neosnippet#snippets_directory
 
 " Enable neosnippet snipmate compatibility mode
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -702,8 +706,7 @@ let g:plugins_folder = substitute( g:plugins_folder, '\', s:pd, 'g')
 let g:marvim_store = g:plugin_data . s:pd . 'marvim'
 
 let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
-let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data . 
-            \s:pd . 'snipmate' . s:pd . 'default-snippets' . s:pd . 'snippets'
+let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:pd . 'snipmate' . s:pd . 'default-snippets' . s:pd . 'snippets'
 let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data . 
             \s:pd . 'snipmate' . s:pd . 'my-snippets'
 " }}}
