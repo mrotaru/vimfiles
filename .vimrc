@@ -597,7 +597,7 @@ Bundle 'tpope/vim-markdown'
 "Bundle 'quentindecock/vim-cucumber-align-pipes'
 "Bundle 'Puppet-Syntax-Highlighting'
 
-Bundle 'vim-scripts/marvim'
+"Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'mihai-rotaru/vim-status-quo'
 Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
@@ -773,6 +773,7 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 "-----------------------------------------------------------------------------
 " Other Plungins
 "-----------------------------------------------------------------------------
+let g:DisableAutoPHPFolding = 1
 if strlen($WINDIR)
     let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
 else
