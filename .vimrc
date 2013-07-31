@@ -182,6 +182,9 @@ endif
 filetype off 
 autocmd!
 
+let g:asciidoc_txt_force = 1
+let g:asciidoc_common_force = 1
+
 "-----------------------------------------------------------------------------
 " Vundle
 "-----------------------------------------------------------------------------
@@ -193,6 +196,8 @@ Bundle 'gmarik/vundle'
 "-----------------------------------------------------------------------------
 " Global Stuff
 "-----------------------------------------------------------------------------
+
+Bundle 'mihai-rotaru/asciidoc-vim'
 
 " Set filetype stuff to on
 filetype on
@@ -597,7 +602,6 @@ Bundle 'tpope/vim-markdown'
 "Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'mihai-rotaru/vim-status-quo'
-Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
 " end vundle bundles }}}
 
 " neocomplcache settings {{{
