@@ -197,8 +197,6 @@ Bundle 'gmarik/vundle'
 " Global Stuff
 "-----------------------------------------------------------------------------
 
-Bundle 'mihai-rotaru/asciidoc-vim'
-
 " Set filetype stuff to on
 filetype on
 filetype plugin on
@@ -589,7 +587,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'skammer/vim-css-color'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 
 " Misc
 " ----
