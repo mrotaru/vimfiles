@@ -819,6 +819,11 @@ if has( "autocmd" )
         au BufEnter *.wiki let g:disable_autoclose = 1
     augroup END
 
+    augroup markdown
+        au!
+        au BufRead,BufNewFile *.md set filetype=markdown
+    augroup END
+
     augroup java
         au!
         au BufEnter *.java map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
