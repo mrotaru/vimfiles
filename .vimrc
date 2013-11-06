@@ -591,7 +591,7 @@ Bundle 'mattn/zencoding-vim'
 
 " Misc
 " ----
-Bundle 'tpope/vim-markdown'
+Bundle 'plasticboy/vim-markdown'
 "Bundle 'spf13/vim-preview'
 "Bundle 'tpope/vim-cucumber'
 "Bundle 'quentindecock/vim-cucumber-align-pipes'
@@ -601,6 +601,7 @@ Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'mihai-rotaru/vim-status-quo'
 Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
+Bundle 'rodjek/vim-puppet'
 " end vundle bundles }}}
 
 " neocomplcache settings {{{
