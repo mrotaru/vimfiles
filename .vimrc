@@ -817,9 +817,10 @@ if has( "autocmd" )
         au BufEnter *.wiki let g:disable_autoclose = 1
     augroup END
 
-    augroup markdown
+    augroup filetypes
         au!
         au BufRead,BufNewFile *.md set filetype=markdown
+        au BufRead,BufNewFile *.pp set filetype=puppet
     augroup END
 
     augroup java
