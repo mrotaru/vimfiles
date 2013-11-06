@@ -564,7 +564,7 @@ Bundle 'honza/vim-snippets'
 " PHP
 " ---
 Bundle 'spf13/PIV'
-Bundle 'joonty/vdebug.git'
+"Bundle 'joonty/vdebug.git'
 
 " Python
 " ------
