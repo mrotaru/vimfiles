@@ -47,14 +47,14 @@ endfunction
 
 " determine path separator
 if has('win16') || has('win32') || has ('win95') || has('win64')
-    let s:path_separator = '\'
+    let s:sep = '\'
 else 
-    let s:path_separator = '/'
+    let s:sep = '/'
 endif
 
 " returns 'path' with 'num_dirs' removed, WITH a trailing path separator
 function! TrimDirs( path, num_dirs )
-    let sep_index=NthFromTheEnd( a:path, s:path_separator, a:num_dirs )
+    let sep_index=NthFromTheEnd( a:path, s:sep, a:num_dirs )
     if sep_index != -1
         return strpart( a:path, 0, sep_index + 1 )
     endif
@@ -62,7 +62,7 @@ endfunction
 
 " TODO: needs special handling on linux
 function! TrimDirsFromStart( path, num_dirs )
-    let sep_index=NthFromTheStart( a:path, s:path_separator, a:num_dirs )
+    let sep_index=NthFromTheStart( a:path, s:sep, a:num_dirs )
     if sep_index != -1
         return strpart( a:path, sep_index+1 )
     endif
@@ -173,8 +173,6 @@ else " most likely Linux
         let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/vundle'
     endif
 endif
-"echo "vimfiles: " . s:vimfiles
-let s:vundle_path = s:vimfiles . '\bundle\vundle'
 "}}}
 
 if exists("$CODE")
@@ -184,18 +182,22 @@ endif
 filetype off 
 autocmd!
 
-"let &runtimepath=&runtimepath . "," . s:vundle_path
-"echo "bundle: " . s:vundle_path
+let g:asciidoc_txt_force = 1
+let g:asciidoc_common_force = 1
 
 "-----------------------------------------------------------------------------
 " Vundle
 "-----------------------------------------------------------------------------
+let s:vundle_path = s:vimfiles . s:sep.'bundle'.s:sep.'vundle'
+let &runtimepath=&runtimepath.','.s:vundle_path
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
 "-----------------------------------------------------------------------------
 " Global Stuff
 "-----------------------------------------------------------------------------
+
+Bundle 'mihai-rotaru/asciidoc-vim'
 
 " Set filetype stuff to on
 filetype on
@@ -597,7 +599,7 @@ Bundle 'plasticboy/vim-markdown'
 "Bundle 'quentindecock/vim-cucumber-align-pipes'
 "Bundle 'Puppet-Syntax-Highlighting'
 
-Bundle 'vim-scripts/marvim'
+"Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'mihai-rotaru/vim-status-quo'
 Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
@@ -697,19 +699,19 @@ endif
 
 " set globals pointing to 'bundle' and plugin_data folders {{{
 "-----------------------------------------------------------------------------
-let s:pd = s:path_separator
+let s:sep = s:sep
 let g:plugin_data = s:vimfiles . '\plugin_data'
-let g:plugin_data = substitute( g:plugin_data, '\', s:pd, 'g')
+let g:plugin_data = substitute( g:plugin_data, '\', s:sep, 'g')
 " where are the plugins ? ( with pathogen.vim, usually the 'bundle' folder )
 let g:plugins_folder = s:vimfiles . '\bundle'
-let g:plugins_folder = substitute( g:plugins_folder, '\', s:pd, 'g')
+let g:plugins_folder = substitute( g:plugins_folder, '\', s:sep, 'g')
 
-let g:marvim_store = g:plugin_data . s:pd . 'marvim'
+let g:marvim_store = g:plugin_data . s:sep . 'marvim'
 
 let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
-let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:pd . 'snipmate' . s:pd . 'default-snippets' . s:pd . 'snippets'
+let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:sep . 'snipmate' . s:sep . 'default-snippets' . s:sep . 'snippets'
 let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data . 
-            \s:pd . 'snipmate' . s:pd . 'my-snippets'
+            \s:sep . 'snipmate' . s:sep . 'my-snippets'
 " }}}
 
 " tracvim plugin stuff
@@ -774,6 +776,7 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 "-----------------------------------------------------------------------------
 " Other Plungins
 "-----------------------------------------------------------------------------
+let g:DisableAutoPHPFolding = 1
 if strlen($WINDIR)
     let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
 else
