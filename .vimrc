@@ -592,6 +592,7 @@ Bundle 'mattn/emmet-vim'
 " Misc
 " ----
 Bundle 'plasticboy/vim-markdown'
+Bundle 'digitaltoad/vim-jade'
 "Bundle 'spf13/vim-preview'
 "Bundle 'tpope/vim-cucumber'
 "Bundle 'quentindecock/vim-cucumber-align-pipes'
@@ -829,8 +830,7 @@ if has( "autocmd" )
 
     augroup vimfiles
         au!
-        au BufEnter *.vim nmap <f5> :source %<CR>
-    augroup END
+        au BufEnter *.vim nmap <f5> :source %<CR> augroup END
 
     augroup xml
         au!
