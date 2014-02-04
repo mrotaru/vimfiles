@@ -597,6 +597,7 @@ Bundle 'digitaltoad/vim-jade'
 "Bundle 'tpope/vim-cucumber'
 "Bundle 'quentindecock/vim-cucumber-align-pipes'
 "Bundle 'Puppet-Syntax-Highlighting'
+Bundle 'cakebaker/scss-syntax.vim'
 
 "Bundle 'vim-scripts/marvim'
 Bundle 'vim-scripts/localvimrc'
