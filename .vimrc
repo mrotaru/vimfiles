@@ -859,6 +859,10 @@ if has( "autocmd" )
     au FocusLost * :wa
 
     au BufEnter *.py,wscript set foldmethod=marker
+
+    " whenever a scss file is saved, convert it to css
+    au BufWritePost *.scss :execute('!scss % '.TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css')
+
 endif
 "}}}
 
