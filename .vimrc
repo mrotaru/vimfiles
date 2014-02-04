@@ -861,6 +861,7 @@ if has( "autocmd" )
     au BufEnter *.py,wscript set foldmethod=marker
 
     " whenever a scss file is saved, convert it to css
+    "au BufWritePost *.scss :execute('!start cmd /c "scss % '.TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css"')
     au BufWritePost *.scss :execute('!scss % '.TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css')
 
 endif
@@ -903,6 +904,7 @@ iab Fone      Phone
 " Set up the window colors and size
 "-----------------------------------------------------------------------------
 if has("gui_running")
+    let g:netrw_silent= 1
     if has("win32")
         set guifont=Envy_Code_R:h10
     endif
