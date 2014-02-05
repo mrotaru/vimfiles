@@ -877,9 +877,7 @@ if has( "autocmd" )
     au BufEnter *.py,wscript set foldmethod=marker
 
     " whenever a scss file is saved, convert it to css
-    au BufWritePost *.scss :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css'))
-    "au BufWritePost *.scss :execute('!scss --sourcemap '.PathToPathname(expand('%:p')).' '.PathToPathname(expand('%:p:r').'.css'))
-    "au BufWritePost *.scss :execute('!scss --sourcemap --trace '.expand('%:p').' '.TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css')
+    au BufWritePost [^_]*.scss :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css'))
 
 endif
 "}}}
