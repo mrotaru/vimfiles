@@ -97,11 +97,15 @@ function! FixQuotes()
         %s/”/"/e
         %s/’/'/e
         %s/¿/'/e
+        %s/¿/"/e
+        %s/¿/"/e
     else
         %s/“/"/ge
         %s/”/"/ge
         %s/’/'/ge
         %s/¿/'/ge
+        %s/¿/"/ge
+        %s/¿/"/ge
     endif
 endfunction
 
@@ -117,6 +121,17 @@ function! RAMStyle() range
         let replacement = substitute( replacement,'){',') {','g' )
         call setline( linenum, replacement )
     endfor
+endfunction
+
+" converts a Windows path to Pathname format
+" see: https://github.com/oneclick/rubyinstaller/issues/179
+" ------------------------------------------------------------------------------
+function! PathToPathname(path)
+    if has('win16') || has('win32') || has ('win95') || has('win64')
+        return substitute( a:path, '\\','/','g')
+    else
+        return a:path
+    endif
 endfunction
 "}}} Functions
 
@@ -862,8 +877,9 @@ if has( "autocmd" )
     au BufEnter *.py,wscript set foldmethod=marker
 
     " whenever a scss file is saved, convert it to css
-    "au BufWritePost *.scss :execute('!start cmd /c "scss % '.TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css"')
-    au BufWritePost *.scss :execute('!scss % '.TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css')
+    au BufWritePost *.scss :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css'))
+    "au BufWritePost *.scss :execute('!scss --sourcemap '.PathToPathname(expand('%:p')).' '.PathToPathname(expand('%:p:r').'.css'))
+    "au BufWritePost *.scss :execute('!scss --sourcemap --trace '.expand('%:p').' '.TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css')
 
 endif
 "}}}
