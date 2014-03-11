@@ -138,47 +138,19 @@ endfunction
 "-----------------------------------------------------------------------------
 " pdev stuff {{{
 "-----------------------------------------------------------------------------
-
-" Controls which directory to use as the $HOME
-" 0: default behaviour
-" 1: if MinGW is present, use <MINGW>/msys/1.0/home/<USERNAME> as home
-" 2: 
-let s:use_mingw_home = 0
-
 if strlen($WINDIR)
-    j
     if isdirectory( 'C:/pdev/bin' )
         let $PATH=$PATH.';C:/pdev/bin'
     endif
 
-    if( expand("$MSYSTEM") == "MINGW32" && s:use_mingw_home ) " run from within an MSYS environment
-        let s:homedir='C:/pdev/MinGW/msys/1.0/home/'.$USERNAME
-        if !isdirectory( s:homedir )
-            echo "Cannot find home directory: ".s:homedir." is not a folder."
-        else
-            let $HOME=s:homedir
-            let $MYVIMRC=s:homedir.'/.vimrc'
-            let &runtimepath=&runtimepath.",".s:homedir.'/vimfiles'
-            let &runtimepath=&runtimepath.",".s:homedir.'/vimfiles/bundle/vundle'
-        endif
-
-        let s:mingwdir='C:/pdev/MinGW'
-        if !isdirectory( s:mingwdir )
-            echo "Cannot find MINGW directory: ".s:mingwdir." is not a folder."
-        else
-            let $PATH=$PATH.";".s:mingwdir.'/msys/1.0/bin;'.s:mingwdir.'/bin;C:/pdev/bin'
-        endif
-
-    else " probably portable gvim; find the 'settings' folder
-        let s:vimfiles=TrimDirs(expand("$VIM"),2).'Data\settings\vimfiles'
-        if isdirectory( s:vimfiles ) 
-            let $HOME=s:vimfiles
-            let $MYVIMRC=s:vimfiles.'\.vimrc'
-            let &runtimepath=&runtimepath.",".s:vimfiles
-            let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\vundle'
-        else
-            echo "Warning: assumed this is PortableGVim, but ".s:settings_dir." is not a folder."
-        endif
+    let s:vimfiles=$VIM."\\vimfiles"
+    if isdirectory( s:vimfiles ) 
+        let $HOME=s:vimfiles
+        let $MYVIMRC=s:vimfiles.'\.vimrc'
+        let &runtimepath=&runtimepath.",".s:vimfiles
+        let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\vundle'
+    else
+        echo "Warning: cannot find vimfiles, ".s:vimfiles." is not a folder."
     endif
 
 else " most likely Linux
@@ -706,10 +678,10 @@ endif
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " neosnippet mappings
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
+imap <c-k>     <Plug>(neosnippet_expand_or_jump)
+smap <c-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <c-k>     <Plug>(neosnippet_expand_target)
+xmap <c-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
 " set globals pointing to 'bundle' and plugin_data folders {{{
 "-----------------------------------------------------------------------------
@@ -726,6 +698,7 @@ let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
 let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:sep . 'snipmate' . s:sep . 'default-snippets' . s:sep . 'snippets'
 let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data . 
             \s:sep . 'snipmate' . s:sep . 'my-snippets'
+let g:neosnippet#snippets_directory = g:snippets_dir
 " }}}
 
 " tracvim plugin stuff
@@ -919,7 +892,7 @@ iab Fone      Phone
 " Set up the window colors and size
 "-----------------------------------------------------------------------------
 if has("gui_running")
-    let g:netrw_silent= 1
+"    let g:netrw_silent= 1
     if has("win32")
         set guifont=Envy_Code_R:h10
     endif
