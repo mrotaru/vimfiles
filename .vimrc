@@ -162,6 +162,16 @@ else " most likely Linux
 endif
 "}}}
 
+" set globals pointing to 'bundle' folder and plugin_data {{{
+"-----------------------------------------------------------------------------
+let s:sep = s:sep
+let g:plugin_data = s:vimfiles . '\plugin_data'
+let g:plugin_data = substitute( g:plugin_data, '\', s:sep, 'g')
+" where are the plugins ?
+let g:plugins_folder = s:vimfiles . '\bundle'
+let g:plugins_folder = substitute( g:plugins_folder, '\', s:sep, 'g')
+" }}}
+
 if exists("$CODE")
     cd $CODE
 endif
@@ -175,10 +185,85 @@ let g:asciidoc_common_force = 1
 "-----------------------------------------------------------------------------
 " Vundle
 "-----------------------------------------------------------------------------
-let s:vundle_path = s:vimfiles . s:sep.'bundle'.s:sep.'vundle'
-let &runtimepath=&runtimepath.','.s:vundle_path
-call vundle#rc()
-Bundle 'gmarik/vundle'
+call vundle#begin(g:plugins_folder)
+Plugin 'gmarik/vundle'
+
+" Vundle bundles {{{
+"-----------------------------------------------------------------------------
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-surround'
+Plugin 'kien/ctrlp.vim'
+Plugin 'matchit.zip'
+
+" General Programming
+" -------------------
+"Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-fugitive'
+"Plugin 'mattn/webapi-vim'
+"Plugin 'mattn/gist-vim'
+"Plugin 'scrooloose/nerdcommenter'
+Plugin 'hrp/EnhancedCommentify'
+"Plugin 'godlygeek/tabular'
+if executable('ctags')
+    Plugin 'majutsushi/tagbar'
+endif
+
+" Snippets & AutoComplete
+" -----------------------
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+"Plugin 'honza/vim-snippets'
+
+" PHP
+" ---
+Plugin 'spf13/PIV'
+"Plugin 'joonty/vdebug.git'
+
+" Python
+" ------
+" Pick either python-mode or pyflakes & pydoc
+"Plugin 'klen/python-mode'
+"Plugin 'python.vim'
+"Plugin 'python_match.vim'
+"Plugin 'pythoncomplete'
+
+" Javascript
+" ----------
+Plugin 'leshill/vim-json'
+Plugin 'groenewege/vim-less'
+Plugin 'pangloss/vim-javascript'
+Plugin 'briancollins/vim-jst'
+Plugin 'kchmck/vim-coffee-script'
+
+" HTML
+" ----
+Plugin 'amirh/HTML-AutoCloseTag'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'skammer/vim-css-color'
+Plugin 'mattn/emmet-vim'
+
+" Misc
+" ----
+Plugin 'plasticboy/vim-markdown'
+Plugin 'digitaltoad/vim-jade'
+"Plugin 'spf13/vim-preview'
+"Plugin 'tpope/vim-cucumber'
+"Plugin 'quentindecock/vim-cucumber-align-pipes'
+"Plugin 'Puppet-Syntax-Highlighting'
+Plugin 'cakebaker/scss-syntax.vim'
+
+"Plugin 'vim-scripts/marvim'
+"let g:marvim_store = g:plugin_data . s:sep . 'marvim'
+Plugin 'vim-scripts/localvimrc'
+Plugin 'mihai-rotaru/vim-status-quo'
+Plugin 'mihai-rotaru/vim-asciidoc-ft-syntax'
+Plugin 'rodjek/vim-puppet'
+
+call vundle#end()
+" end vundle bundles }}}
 
 "-----------------------------------------------------------------------------
 " Global Stuff
@@ -520,79 +605,6 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which
 set foldmethod=marker " detect triple-{ style fold markers
 " }}}
 
-" Vundle bundles {{{
-"-----------------------------------------------------------------------------
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'matchit.zip'
-
-" General Programming
-" -------------------
-"Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-"Bundle 'mattn/webapi-vim'
-"Bundle 'mattn/gist-vim'
-"Bundle 'scrooloose/nerdcommenter'
-Bundle 'hrp/EnhancedCommentify'
-"Bundle 'godlygeek/tabular'
-if executable('ctags')
-    Bundle 'majutsushi/tagbar'
-endif
-
-" Snippets & AutoComplete
-" -----------------------
-Bundle 'Shougo/neocomplete'
-Bundle 'Shougo/neosnippet'
-Bundle 'honza/vim-snippets'
-
-" PHP
-" ---
-Bundle 'spf13/PIV'
-"Bundle 'joonty/vdebug.git'
-
-" Python
-" ------
-" Pick either python-mode or pyflakes & pydoc
-"Bundle 'klen/python-mode'
-"Bundle 'python.vim'
-"Bundle 'python_match.vim'
-"Bundle 'pythoncomplete'
-
-" Javascript
-" ----------
-Bundle 'leshill/vim-json'
-Bundle 'groenewege/vim-less'
-Bundle 'pangloss/vim-javascript'
-Bundle 'briancollins/vim-jst'
-Bundle 'kchmck/vim-coffee-script'
-
-" HTML
-" ----
-Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'skammer/vim-css-color'
-Bundle 'mattn/emmet-vim'
-
-" Misc
-" ----
-Bundle 'plasticboy/vim-markdown'
-Bundle 'digitaltoad/vim-jade'
-"Bundle 'spf13/vim-preview'
-"Bundle 'tpope/vim-cucumber'
-"Bundle 'quentindecock/vim-cucumber-align-pipes'
-"Bundle 'Puppet-Syntax-Highlighting'
-Bundle 'cakebaker/scss-syntax.vim'
-
-"Bundle 'vim-scripts/marvim'
-Bundle 'vim-scripts/localvimrc'
-Bundle 'mihai-rotaru/vim-status-quo'
-Bundle 'mihai-rotaru/vim-asciidoc-ft-syntax'
-Bundle 'rodjek/vim-puppet'
-" end vundle bundles }}}
-
  "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -677,29 +689,33 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-" neosnippet mappings
-imap <c-k>     <Plug>(neosnippet_expand_or_jump)
-smap <c-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <c-k>     <Plug>(neosnippet_expand_target)
-xmap <c-l>     <Plug>(neosnippet_start_unite_snippet_target)
+"" neosnippet mappings
+"" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" set globals pointing to 'bundle' and plugin_data folders {{{
-"-----------------------------------------------------------------------------
-let s:sep = s:sep
-let g:plugin_data = s:vimfiles . '\plugin_data'
-let g:plugin_data = substitute( g:plugin_data, '\', s:sep, 'g')
-" where are the plugins ? ( with pathogen.vim, usually the 'bundle' folder )
-let g:plugins_folder = s:vimfiles . '\bundle'
-let g:plugins_folder = substitute( g:plugins_folder, '\', s:sep, 'g')
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
 
-let g:marvim_store = g:plugin_data . s:sep . 'marvim'
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
+" set snippet folders manually; bc. pdev stuff they are not correctly set automatically
 let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
 let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:sep . 'snipmate' . s:sep . 'default-snippets' . s:sep . 'snippets'
-let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data . 
-            \s:sep . 'snipmate' . s:sep . 'my-snippets'
+let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:sep . 'snipmate' . s:sep . 'my-snippets'
 let g:neosnippet#snippets_directory = g:snippets_dir
-" }}}
+
+" Enable neosnippet snipmate compatibility mode
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 " tracvim plugin stuff
 "-----------------------------------------------------------------------------
