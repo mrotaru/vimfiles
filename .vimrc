@@ -133,6 +133,16 @@ function! PathToPathname(path)
         return a:path
     endif
 endfunction
+
+" converts a Unix path to a Windows path, if needed
+" ------------------------------------------------------------------------------
+function! UnixToWin(path)
+    if has('win16') || has('win32') || has ('win95') || has('win64')
+        return substitute( a:path, '/','\\','g')
+    else
+        return a:path
+    endif
+endfunction
 "}}} Functions
 
 "-----------------------------------------------------------------------------
@@ -215,7 +225,7 @@ endif
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
-"Plugin 'honza/vim-snippets'
+Plugin 'honza/vim-snippets'
 
 " PHP
 " ---
@@ -605,7 +615,9 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which
 set foldmethod=marker " detect triple-{ style fold markers
 " }}}
 
- "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Enable neosnippet snipmate compatibility mode
+let g:neosnippet#enable_snipmate_compatibility = 1
+
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -709,13 +721,17 @@ if has('conceal')
 endif
 
 " set snippet folders manually; bc. pdev stuff they are not correctly set automatically
-let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
-let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:sep . 'snipmate' . s:sep . 'default-snippets' . s:sep . 'snippets'
-let g:snippets_dir = g:snippets_dir . ',' .  g:plugin_data .  s:sep . 'snipmate' . s:sep . 'my-snippets'
-let g:neosnippet#snippets_directory = g:snippets_dir
+"let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
+"let g:snippets_dir .= ',' . g:plugin_data . UnixToWin('/snipmate/default-snippets/snippets')
+"let g:snippets_dir .= ',' . g:plugin_data . UnixToWin('/snipmate/my-snippets')
 
-" Enable neosnippet snipmate compatibility mode
-let g:neosnippet#enable_snipmate_compatibility = 1
+"" Tell Neosnippet about the other snippets
+let g:snippets_dir  =       s:vimfiles . UnixToWin('/bundle/vim-snippets/snippets')
+let g:snippets_dir .= ',' . s:vimfiles . UnixToWin('/bundle/vim-snippets/snippets/javascript')
+
+"echomsg g:snippets_dir
+
+"let g:neosnippet#snippets_directory = g:snippets_dir
 
 " tracvim plugin stuff
 "-----------------------------------------------------------------------------
