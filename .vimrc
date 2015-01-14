@@ -45,6 +45,21 @@ function! NthFromTheStart( haystack, needle, n )
     endif
 endfunction
 
+" hex editing mode
+" http://www.kevssite.com/2009/04/21/using-vi-as-a-hex-editor/#comment-1045723510
+let $in_hex=0
+function HexMe()
+    set binary
+    set noeol
+    if $in_hex>0
+        :%!xxd -r
+        let $in_hex=0
+    else
+        :%!xxd
+        let $in_hex=1
+    endif
+endfunction
+
 " determine path separator
 if has('win16') || has('win32') || has ('win95') || has('win64')
     let s:sep = '\'
@@ -175,11 +190,9 @@ endif
 " set globals pointing to 'bundle' folder and plugin_data {{{
 "-----------------------------------------------------------------------------
 let s:sep = s:sep
-let g:plugin_data = s:vimfiles . '\plugin_data'
-let g:plugin_data = substitute( g:plugin_data, '\', s:sep, 'g')
+let g:plugin_data = s:vimfiles . UnixToWin('\plugin_data')
 " where are the plugins ?
-let g:plugins_folder = s:vimfiles . '\bundle'
-let g:plugins_folder = substitute( g:plugins_folder, '\', s:sep, 'g')
+let g:plugins_folder = s:vimfiles . UnixToWin('\bundle')
 " }}}
 
 if exists("$CODE")
@@ -218,7 +231,14 @@ Plugin 'hrp/EnhancedCommentify'
 "Plugin 'godlygeek/tabular'
 if executable('ctags')
     Plugin 'majutsushi/tagbar'
+"    Plugin 'vim-scripts/taglist.vim'
 endif
+
+
+let g:tagbar_type_javascript = {
+            \ 'ctagstype' : 'javascript',
+            \ 'deffile' : 'C:/Users/Mihai/.ctags'
+            \ }
 
 " Snippets & AutoComplete
 " -----------------------
@@ -265,8 +285,7 @@ Plugin 'digitaltoad/vim-jade'
 "Plugin 'Puppet-Syntax-Highlighting'
 Plugin 'cakebaker/scss-syntax.vim'
 
-"Plugin 'vim-scripts/marvim'
-"let g:marvim_store = g:plugin_data . s:sep . 'marvim'
+Plugin 'vim-scripts/marvim'
 Plugin 'vim-scripts/localvimrc'
 Plugin 'mihai-rotaru/vim-status-quo'
 Plugin 'mihai-rotaru/vim-asciidoc-ft-syntax'
@@ -728,6 +747,7 @@ endif
 "" Tell Neosnippet about the other snippets
 let g:snippets_dir  =       s:vimfiles . UnixToWin('/bundle/vim-snippets/snippets')
 let g:snippets_dir .= ',' . s:vimfiles . UnixToWin('/bundle/vim-snippets/snippets/javascript')
+let g:snippets_dir .= ',' . g:plugin_data . UnixToWin('/snipmate')
 
 "echomsg g:snippets_dir
 
@@ -801,6 +821,7 @@ if strlen($WINDIR)
 else
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 endif
+let g:marvim_store = g:plugin_data . s:sep . 'marvim'
 
 "-----------------------------------------------------------------------------
 " Java highlighting
@@ -816,6 +837,8 @@ function! RunSystemCall(systemcall)
     let output = substitute(output, "\n", '', 'g')
     return output
 endfunction
+
+let g:vim_markdown_initial_foldlevel=10
 
 "-----------------------------------------------------------------------------
 " Auto commands {{{
@@ -847,6 +870,11 @@ if has( "autocmd" )
     augroup java
         au!
         au BufEnter *.java map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
+    augroup END
+
+    augroup ahk
+        au!
+        au BufEnter *.ahk map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
     augroup END
 
     augroup vimfiles
@@ -883,6 +911,9 @@ if has( "autocmd" )
 
     " whenever a scss file is saved, convert it to css
     au BufWritePost [^_]*.scss :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css'))
+
+   au BufReadPost quickfix nnoremap <buffer> <CR> <CR><C-W><C-P>
+   au BufReadPost quickfix nnoremap <buffer> o <CR>
 
 endif
 "}}}
