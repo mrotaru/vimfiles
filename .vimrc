@@ -1,7 +1,7 @@
 set nocompatible
 
 if filereadable(expand("~/.vimrc.lib"))
-    source ~/.vimrc.lib
+    source expand("~/.vimrc.lib")
 endif
 
 "-----------------------------------------------------------------------------
@@ -33,8 +33,7 @@ endif
 
 " set globals pointing to 'bundle' folder and plugin_data {{{
 "-----------------------------------------------------------------------------
-let s:sep = s:sep
-let g:plugin_data = s:vimfiles . UnixToWin('\plugin_data')
+let g:plugin_data = s:vimfiles . vimrclib#UnixToWin('\plugin_data')
 " where are the plugins ?
 let g:plugins_folder = s:vimfiles . UnixToWin('\bundle')
 " }}}
@@ -669,7 +668,7 @@ if strlen($WINDIR)
 else
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 endif
-let g:marvim_store = g:plugin_data . s:sep . 'marvim'
+let g:marvim_store = g:plugin_data . g:sep . 'marvim'
 
 "-----------------------------------------------------------------------------
 " Java highlighting
@@ -758,7 +757,7 @@ if has( "autocmd" )
     au BufEnter *.py,wscript set foldmethod=marker
 
     " whenever a scss file is saved, convert it to css
-    au BufWritePost [^_]*.scss :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.s:sep.expand('%:t:r').'.css'))
+    au BufWritePost [^_]*.scss :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.g:sep.expand('%:t:r').'.css'))
 
    au BufReadPost quickfix nnoremap <buffer> <CR> <CR><C-W><C-P>
    au BufReadPost quickfix nnoremap <buffer> o <CR>
