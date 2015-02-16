@@ -33,7 +33,7 @@ endif
 
 " set globals pointing to 'bundle' folder and plugin_data {{{
 "-----------------------------------------------------------------------------
-let g:plugin_data = s:vimfiles . vimrclib#UnixToWin('\plugin_data')
+let g:plugin_data = s:vimfiles . UnixToWin('\plugin_data')
 " where are the plugins ?
 let g:plugins_folder = s:vimfiles . UnixToWin('\bundle')
 " }}}
@@ -164,65 +164,27 @@ else
 endif
 set makeef=errorz
 
-" don't wrap by default
-set nowrap
-
-" Tabstops are 4 spaces
-set tabstop=4
+set nowrap          " don't wrap by default
+set tabstop=4       " Tabstops are 4 spaces
 set shiftwidth=4
-
-" set the search scan to wrap lines
-set wrapscan
-
-" set the search scan so that it ignores case when the search is all lower
-" case but recognizes uppercase if it's specified
+set wrapscan        " set the search scan to wrap lines
 set ignorecase
 set smartcase
-
-" set the forward slash to be the slash of note.  Backslashes suck
 "set shellslash
-
-" Make command line two lines high
-set ch=2
-
-" set visual bell
-set vb
-
-" Allow backspacing over indent, eol, and the start of an insert
-set backspace=2
-
-" Makeke sure that unsaved buffers that are to be put in the background are
-" allowed to go in there (ie. the "must save first" error doesn't come up)
-set hidden
-
-" Make the 'cw' and like commands put a $ at the end instead of just deleting
-" the text and replacing it
-"set cpoptions=ces$
-
+set ch=2            " Make command line two lines high
+set vb              " set visual bell
+set backspace=2     " Allow backspacing over indent, eol, and the start of an insert
+set hidden          " Make sure that unsaved buffers that are to be put in the background are
+                    " allowed to go in there (ie. the "must save first" error doesn't come up)
 set ruler
-
 set undofile
-
-" regular expressions have /g by default
-set gdefault
-
-" tell VIM to always put a status line in, even if there is only one window
-set laststatus=2
-
-" Don't update the display while executing macros
+set gdefault        " regular expressions have /g by default
+set laststatus=2    " tell VIM to always put a status line in, even if there is only one window
 set lazyredraw
-
-" Show the current command in the lower right corner
-set showcmd
-
-" Show the current mode
-set showmode
-
-" Switch on syntax highlighting.
-syntax on
-
-" Hide the mouse pointer while typing
-set mousehide
+set showcmd         " Show the current command in the lower right corner
+set showmode        " Show the current mode
+syntax on           " Switch on syntax highlighting.
+set mousehide       " Hide the mouse pointer while typing
 
 " Set up the gui cursor to look nice
 set guicursor=n-v-c:block-Cursor-blinkon0
@@ -245,63 +207,23 @@ set guioptions=acif
 "      if there is one (which there isn't) or the command aborts.
 set timeoutlen=500
 
-" Keep some stuff in the history
-set history=100
-
-" When the page starts to scroll, keep the cursor 8 lines from the top and 8
-" lines from the bottom
+set history=100         " Keep some stuff in the history
 set scrolloff=8
-
-" Allow the cursor to go in to "invalid" places
-set virtualedit=all
-
-" These things start comment lines
-set comments=sl:/*,mb:\ *,ex:\ */,O://,b:#,:%,:XCOMM,n:>,fb:-
-
-" Disable encryption (:X)
-set key=
-
-" Make the command-line completion better
-set wildmenu
-
-" Same as default except that I remove the 'u' option
-set complete=.,w,b,t,i
-
-" When completing by tag, show the whole tag, not just the function name
-set showfulltag
-
-" Set the textwidth to be 120 chars
+set virtualedit=all     " Allow the cursor to go in to "invalid" places
+set comments=sl:/*,mb:\ *,ex:\ */,O://,b:#,:%,:XCOMM,n:>,fb:- " These things start comment lines
+set key=                " Disable encryption (:X)
+set wildmenu            " Make the command-line completion better
+set complete=.,w,b,t,i  " Same as default except 'u' option is removed
+set showfulltag         " When completing by tag, show the whole tag, not just the function name
 "set textwidth=120
-
-" get rid of the characters in window separators
-"set fillchars=stlnc:\ ,vert:┃,fold:-,diff:-
-
-" Turn tabs into spaces
-set expandtab
-
-" Add ignorance of whitespace to diff
-set diffopt+=iwhite
-
-" Enable search highlighting
-set hlsearch
-
-" Incrementally match the search
-set incsearch
-
-" Initial path seeding
-"set path=/home/saddoveanu/Projects/**
-
-" Set the tags files to be the following
-set tags=./tags,tags
-
-" show relative line numbers by default
-set relativenumber
-
-" enable modeline
-set modeline
-
-" Let the syntax highlighting for Java files allow cpp keywords
-"let java_allow_cpp_keywords = 1
+"set fillchars=stlnc:\ ,vert:┃,fold:-,diff:- " get rid of the characters in window separators
+set expandtab           " Turn tabs into spaces
+set diffopt+=iwhite     " Add ignorance of whitespace to diff
+set hlsearch            " Enable search highlighting
+set incsearch           " Incrementally match the search
+set tags=./tags,tags    " Set the tags files to be the following
+set relativenumber      " show relative line numbers by default
+set modeline            " enable modeline
 
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
