@@ -625,11 +625,6 @@ if has( "autocmd" )
 
     autocmd BufRead,BufNewFile wscript set filetype=python
 
-    augroup autoclose_group
-        au!
-        au BufEnter *.wiki let g:disable_autoclose = 1
-    augroup END
-
     augroup filetypes
         au!
         au BufRead,BufNewFile *.md set filetype=markdown
@@ -644,20 +639,6 @@ if has( "autocmd" )
     augroup ahk
         au!
         au BufEnter *.ahk map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
-    augroup END
-
-    augroup vimfiles
-        au!
-        au BufEnter *.vim nmap <f5> :source %<CR> augroup END
-
-    augroup xml
-        au!
-        au BufEnter *.xml :compiler xmlstar-val
-    augroup END
-
-    augroup docbook
-        au!
-        au BufEnter *.docbook :compiler xmlstar-val | :set filetype=xml
     augroup END
 
     augroup CoffeeScript
