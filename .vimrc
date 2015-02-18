@@ -193,18 +193,8 @@ set guicursor+=i-ci:ver25-Cursor
 set guicursor+=r-cr:hor20-Cursor
 set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
 
-" set the gui options
-set guioptions=acif
-
-" This is the timeout used while waiting for user input on a multi-keyed macro
-" or while just sitting and waiting for another key to be pressed measured
-" in milliseconds.
-"
-" i.e. for the ",d" command, there is a "timeoutlen" wait period between the
-"      "," key and the "d" key.  If the "d" key isn't pressed before the
-"      timeout expires, one of two things happens: The "," command is executed
-"      if there is one (which there isn't) or the command aborts.
-set timeoutlen=500
+set guioptions=acif " set the gui options 
+set timeoutlen=500 " ms between keys in macors and commands
 
 set history=100         " Keep some stuff in the history
 set scrolloff=8
@@ -450,25 +440,6 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -507,23 +478,10 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-" set snippet folders manually; bc. pdev stuff they are not correctly set automatically
-"let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
-"let g:snippets_dir .= ',' . g:plugin_data . vimrclib#UnixToWin('/snipmate/default-snippets/snippets')
-"let g:snippets_dir .= ',' . g:plugin_data . vimrclib#UnixToWin('/snipmate/my-snippets')
-
 "" Tell Neosnippet about the other snippets
 let g:snippets_dir  =       s:vimfiles . vimrclib#UnixToWin('/bundle/vim-snippets/snippets')
 let g:snippets_dir .= ',' . s:vimfiles . vimrclib#UnixToWin('/bundle/vim-snippets/snippets/javascript')
 let g:snippets_dir .= ',' . g:plugin_data . vimrclib#UnixToWin('/snipmate')
-
-"echomsg g:snippets_dir
-
-"let g:neosnippet#snippets_directory = g:snippets_dir
-
-" tracvim plugin stuff
-"-----------------------------------------------------------------------------
-let g:tracServerList = {}
 
 " Align plugin stuff
 "-----------------------------------------------------------------------------
@@ -562,12 +520,6 @@ map <leader>f :MRU<CR>
 let g:user_zen_leader_key = '<c-l>'
 
 "-----------------------------------------------------------------------------
-" Disabled plugins
-"-----------------------------------------------------------------------------
-let loaded_minibufexplorer = 1
-let g:loaded_showmarks = 1
-
-"-----------------------------------------------------------------------------
 " FSwitch Settings
 "-----------------------------------------------------------------------------
 nmap <silent> ,of :FSHere<CR>
@@ -590,23 +542,9 @@ else
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 endif
 let g:marvim_store = g:plugin_data . g:sep . 'marvim'
-
-"-----------------------------------------------------------------------------
-" Java highlighting
-"-----------------------------------------------------------------------------
 let java_highlight_all=1
-
-"-----------------------------------------------------------------------------
-" Functions
-"-----------------------------------------------------------------------------
-
-function! RunSystemCall(systemcall)
-    let output = system(a:systemcall)
-    let output = substitute(output, "\n", '', 'g')
-    return output
-endfunction
-
 let g:vim_markdown_initial_foldlevel=10
+let g:compiler_gcc_ingore_unmatched_lines=1
 
 "-----------------------------------------------------------------------------
 " Auto commands {{{
@@ -614,13 +552,11 @@ let g:vim_markdown_initial_foldlevel=10
 if has( "autocmd" )
     augroup cpp
         au!
-
         " C++ headers ( h or hpp ) are kept in the same folder as the .cpp files
         au BufEnter *.h,*.hpp let b:fswitchlocs = 'rel:.,./src,../src' | let b:fswitchdst = 'cpp'
         au BufEnter *.c,*.cpp let b:fswitchlocs = 'rel:.,./include,../include' | let b:fswitchdst = 'h'
     augroup END
 
-    let g:compiler_gcc_ingore_unmatched_lines=1
 
     autocmd BufRead,BufNewFile wscript set filetype=python
 
@@ -666,39 +602,6 @@ if has( "autocmd" )
 
 endif
 "}}}
-
-"-----------------------------------------------------------------------------
-" Fix constant spelling mistakes {{{
-"-----------------------------------------------------------------------------
-iab teh       the
-iab Teh       The
-iab taht      that
-iab Taht      That
-iab alos      also
-iab Alos      Also
-iab aslo      also
-iab Aslo      Also
-iab becuase   because
-iab Becuase   Because
-iab bianry    binary
-iab Bianry    Binary
-iab bianries  binaries
-iab Bianries  Binaries
-iab charcter  character
-iab Charcter  Character
-iab charcters characters
-iab Charcters Characters
-iab exmaple   example
-iab Exmaple   Example
-iab exmaples  examples
-iab Exmaples  Examples
-iab shoudl    should
-iab Shoudl    Should
-iab seperate  separate
-iab Seperate  Separate
-iab fone      phone
-iab Fone      Phone
-" }}} Spelling mistakes
 
 "-----------------------------------------------------------------------------
 " Set up the window colors and size

@@ -1,4 +1,11 @@
 " vim: set filetype=vim:
+
+function! vimrclib#RunSystemCall(systemcall)
+    let output = system(a:systemcall)
+    let output = substitute(output, "\n", '', 'g')
+    return output
+endfunction
+
 " Returns the (zero-indexed) position of the `n`-th occurence of `needle` in
 " `haystack`, counting from the end of the string.
 " If `haystack` contains no `needle`s, returns -1
