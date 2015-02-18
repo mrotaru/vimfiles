@@ -545,6 +545,7 @@ let g:marvim_store = g:plugin_data . g:sep . 'marvim'
 let java_highlight_all=1
 let g:vim_markdown_initial_foldlevel=10
 let g:compiler_gcc_ingore_unmatched_lines=1
+let coffee_make_options = ''
 
 "-----------------------------------------------------------------------------
 " Auto commands {{{
@@ -557,49 +558,22 @@ if has( "autocmd" )
         au BufEnter *.c,*.cpp let b:fswitchlocs = 'rel:.,./include,../include' | let b:fswitchdst = 'h'
     augroup END
 
-
     autocmd BufRead,BufNewFile wscript set filetype=python
 
-    augroup filetypes
+    augroup misc
         au!
-        au BufRead,BufNewFile *.md set filetype=markdown
-        au BufRead,BufNewFile *.pp set filetype=puppet
+        au BufRead,BufNewFile   *.md            set filetype=markdown
+        au BufRead,BufNewFile   *.pp            set filetype=puppet
+        au BufEnter             *.py,wscript    set foldmethod=marker
+        au BufEnter             *.java          map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
+        au BufEnter             *.ahk           map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
+        au BufEnter             *.coffee        map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
+        au BufWritePost         [^_]*.scss      :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.g:sep.expand('%:t:r').'.css'))
     augroup END
-
-    augroup java
-        au!
-        au BufEnter *.java map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
-    augroup END
-
-    augroup ahk
-        au!
-        au BufEnter *.ahk map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
-    augroup END
-
-    augroup CoffeeScript
-        au!
-        au BufEnter *.coffee map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
-    augroup END
-
-    augroup WebDev
-        au!
-        au BufEnter *php,*html map <C-Enter> :call OpenInBrowser()<CR>
-    augroup END
-
-    "let coffee_make_options = '--bare'
-    let coffee_make_options = ''
-
-    " when loosing focus, write all buffers
     au FocusLost * :wa
 
-    au BufEnter *.py,wscript set foldmethod=marker
-
-    " whenever a scss file is saved, convert it to css
-    au BufWritePost [^_]*.scss :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.g:sep.expand('%:t:r').'.css'))
-
-   au BufReadPost quickfix nnoremap <buffer> <CR> <CR><C-W><C-P>
-   au BufReadPost quickfix nnoremap <buffer> o <CR>
-
+    au BufReadPost quickfix nnoremap <buffer> <CR> <CR><C-W><C-P>
+    au BufReadPost quickfix nnoremap <buffer> o <CR>
 endif
 "}}}
 
