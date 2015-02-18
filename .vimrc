@@ -1,9 +1,5 @@
 set nocompatible
 
-if filereadable(expand("~/.vimrc.lib"))
-    source expand("~/.vimrc.lib")
-endif
-
 "-----------------------------------------------------------------------------
 " pdev stuff {{{
 "-----------------------------------------------------------------------------
@@ -31,11 +27,14 @@ else " most likely Linux
 endif
 "}}}
 
+if filereadable(expand(s:vimfiles."/vimrclib.vim"))
+    exec "source ".s:vimfiles."/vimrclib.vim"
+endif
+
 " set globals pointing to 'bundle' folder and plugin_data {{{
 "-----------------------------------------------------------------------------
-let g:plugin_data = s:vimfiles . UnixToWin('\plugin_data')
-" where are the plugins ?
-let g:plugins_folder = s:vimfiles . UnixToWin('\bundle')
+let g:plugin_data = s:vimfiles . vimrclib#UnixToWin('\plugin_data')
+let g:plugins_folder = s:vimfiles . vimrclib#UnixToWin('\bundle')
 " }}}
 
 if exists("$CODE")
@@ -510,13 +509,13 @@ endif
 
 " set snippet folders manually; bc. pdev stuff they are not correctly set automatically
 "let g:snippets_dir = substitute(globpath(&rtp, 'snippets/'), "\n", ',', 'g')
-"let g:snippets_dir .= ',' . g:plugin_data . UnixToWin('/snipmate/default-snippets/snippets')
-"let g:snippets_dir .= ',' . g:plugin_data . UnixToWin('/snipmate/my-snippets')
+"let g:snippets_dir .= ',' . g:plugin_data . vimrclib#UnixToWin('/snipmate/default-snippets/snippets')
+"let g:snippets_dir .= ',' . g:plugin_data . vimrclib#UnixToWin('/snipmate/my-snippets')
 
 "" Tell Neosnippet about the other snippets
-let g:snippets_dir  =       s:vimfiles . UnixToWin('/bundle/vim-snippets/snippets')
-let g:snippets_dir .= ',' . s:vimfiles . UnixToWin('/bundle/vim-snippets/snippets/javascript')
-let g:snippets_dir .= ',' . g:plugin_data . UnixToWin('/snipmate')
+let g:snippets_dir  =       s:vimfiles . vimrclib#UnixToWin('/bundle/vim-snippets/snippets')
+let g:snippets_dir .= ',' . s:vimfiles . vimrclib#UnixToWin('/bundle/vim-snippets/snippets/javascript')
+let g:snippets_dir .= ',' . g:plugin_data . vimrclib#UnixToWin('/snipmate')
 
 "echomsg g:snippets_dir
 
