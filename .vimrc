@@ -1,9 +1,26 @@
+" based on:
+" Derek Wyatt's config: https://github.com/derekwyatt/vim-config
+" spf-13: https://github.com/spf13/spf13-vim
+
 set nocompatible
+
+"-----------------------------------------------------------------------------
+" Detect OS
+"-----------------------------------------------------------------------------
+silent function! WINDOWS()
+    return (has('win16') || has('win32') || has('win64'))
+endfunction
+silent function! OSX()
+    return has('macunix')
+endfunction
+silent function! LINUX()
+    return has('unix') && !has('macunix') && !has('win32unix')
+endfunction
 
 "-----------------------------------------------------------------------------
 " pdev stuff {{{
 "-----------------------------------------------------------------------------
-if strlen($WINDIR)
+if WINDOWS()
     if isdirectory( 'C:/pdev/bin' )
         let $PATH=$PATH.';C:/pdev/bin'
     endif
@@ -76,12 +93,6 @@ if executable('ctags')
 "    Plugin 'vim-scripts/taglist.vim'
 endif
 
-
-let g:tagbar_type_javascript = {
-            \ 'ctagstype' : 'javascript',
-            \ 'deffile' : 'C:/Users/Mihai/.ctags'
-            \ }
-
 " Snippets & AutoComplete
 " -----------------------
 Plugin 'Shougo/neocomplete'
@@ -147,9 +158,6 @@ filetype indent on
 
 " ignore me some filez
 set wildignore=*.lnk,*.o
-
-" pathogen gets the (vim)balls
-"set g:vimball_home=
 
 " set vim to store backups in a certain directory to avoid clutter
 if has("win32")
@@ -536,7 +544,7 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 " Other Plungins
 "-----------------------------------------------------------------------------
 let g:DisableAutoPHPFolding = 1
-if strlen($WINDIR)
+if WINDOWS()
     let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
 else
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
@@ -582,8 +590,8 @@ endif
 "-----------------------------------------------------------------------------
 if has("gui_running")
 "    let g:netrw_silent= 1
-    if has("win32")
-        set guifont=Envy_Code_R:h10
+    if WINDOWS()
+        set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
     endif
     set background=light
     colorscheme jellybeans
