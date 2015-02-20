@@ -61,94 +61,12 @@ endif
 filetype off 
 autocmd!
 
-let g:asciidoc_txt_force = 1
-let g:asciidoc_common_force = 1
-
-"-----------------------------------------------------------------------------
-" Vundle
-"-----------------------------------------------------------------------------
-call vundle#begin(g:plugins_folder)
-Plugin 'gmarik/vundle'
-
-" Vundle bundles {{{
-"-----------------------------------------------------------------------------
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-surround'
-Plugin 'kien/ctrlp.vim'
-Plugin 'matchit.zip'
-
-" General Programming
-" -------------------
-"Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-fugitive'
-"Plugin 'mattn/webapi-vim'
-"Plugin 'mattn/gist-vim'
-"Plugin 'scrooloose/nerdcommenter'
-Plugin 'hrp/EnhancedCommentify'
-"Plugin 'godlygeek/tabular'
-if executable('ctags')
-    Plugin 'majutsushi/tagbar'
-"    Plugin 'vim-scripts/taglist.vim'
+if filereadable(expand(s:vimfiles."/.vimrc.bundles"))
+    exec "source ".s:vimfiles."/.vimrc.bundles"
 endif
 
-" Snippets & AutoComplete
-" -----------------------
-Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'honza/vim-snippets'
-
-" PHP
-" ---
-Plugin 'spf13/PIV'
-"Plugin 'joonty/vdebug.git'
-
-" Python
-" ------
-" Pick either python-mode or pyflakes & pydoc
-"Plugin 'klen/python-mode'
-"Plugin 'python.vim'
-"Plugin 'python_match.vim'
-"Plugin 'pythoncomplete'
-
-" Javascript
-" ----------
-Plugin 'leshill/vim-json'
-Plugin 'groenewege/vim-less'
-Plugin 'pangloss/vim-javascript'
-Plugin 'briancollins/vim-jst'
-Plugin 'kchmck/vim-coffee-script'
-
-" HTML
-" ----
-Plugin 'amirh/HTML-AutoCloseTag'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'skammer/vim-css-color'
-Plugin 'mattn/emmet-vim'
-
-" Misc
-" ----
-Plugin 'plasticboy/vim-markdown'
-Plugin 'digitaltoad/vim-jade'
-"Plugin 'spf13/vim-preview'
-"Plugin 'tpope/vim-cucumber'
-"Plugin 'quentindecock/vim-cucumber-align-pipes'
-"Plugin 'Puppet-Syntax-Highlighting'
-Plugin 'cakebaker/scss-syntax.vim'
-
-Plugin 'vim-scripts/marvim'
-Plugin 'vim-scripts/localvimrc'
-Plugin 'mihai-rotaru/vim-status-quo'
-Plugin 'mihai-rotaru/vim-asciidoc-ft-syntax'
-Plugin 'rodjek/vim-puppet'
-
-call vundle#end()
-" end vundle bundles }}}
-
 "-----------------------------------------------------------------------------
-" Global Stuff
+" Settings {{{
 "-----------------------------------------------------------------------------
 
 " Set filetype stuff to on
@@ -221,6 +139,7 @@ set incsearch           " Incrementally match the search
 set tags=./tags,tags    " Set the tags files to be the following
 set relativenumber      " show relative line numbers by default
 set modeline            " enable modeline
+" }}}
 
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
@@ -528,7 +447,7 @@ map <leader>f :MRU<CR>
 let g:user_zen_leader_key = '<c-l>'
 
 "-----------------------------------------------------------------------------
-" FSwitch Settings
+" FSwitch Settings {{{
 "-----------------------------------------------------------------------------
 nmap <silent> ,of :FSHere<CR>
 nmap <silent> ,ol :FSRight<CR>
@@ -539,9 +458,10 @@ nmap <silent> ,ok :FSAbove<CR>
 nmap <silent> ,oK :FSSplitAbove<CR>
 nmap <silent> ,oj :FSBelow<CR>
 nmap <silent> ,oJ :FSSplitBelow<CR>
+" }}}
 
 "-----------------------------------------------------------------------------
-" Other Plungins
+" Other Plungins {{{
 "-----------------------------------------------------------------------------
 let g:DisableAutoPHPFolding = 1
 if WINDOWS()
@@ -549,11 +469,14 @@ if WINDOWS()
 else
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 endif
+
 let g:marvim_store = g:plugin_data . g:sep . 'marvim'
 let java_highlight_all=1
 let g:vim_markdown_initial_foldlevel=10
 let g:compiler_gcc_ingore_unmatched_lines=1
 let coffee_make_options = ''
+let g:asciidoc_txt_force = 1
+let g:asciidoc_common_force = 1 " }}}
 
 "-----------------------------------------------------------------------------
 " Auto commands {{{
@@ -586,7 +509,7 @@ endif
 "}}}
 
 "-----------------------------------------------------------------------------
-" Set up the window colors and size
+" Set up the window colors and size {{{
 "-----------------------------------------------------------------------------
 if has("gui_running")
 "    let g:netrw_silent= 1
