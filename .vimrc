@@ -61,9 +61,13 @@ endif
 filetype off 
 autocmd!
 
+"-----------------------------------------------------------------------------
+" Plugins {{{
+"-----------------------------------------------------------------------------
 if filereadable(expand(s:vimfiles."/.vimrc.bundles"))
     exec "source ".s:vimfiles."/.vimrc.bundles"
 endif
+" }}}
 
 "-----------------------------------------------------------------------------
 " Settings {{{
@@ -295,9 +299,6 @@ nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
 
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
-
-" I don't like it when the matching parens are automatically highlighted
-"let loaded_matchparen = 1
 
 " unicode settings - use UTF-8 encoding by default ( http://vim.wikia.com/wiki/Working_with_Unicode ) {{{
 if has("multi_byte")
