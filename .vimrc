@@ -21,10 +21,6 @@ endfunction
 " pdev stuff {{{
 "-----------------------------------------------------------------------------
 if WINDOWS()
-    if isdirectory( 'C:/pdev/bin' )
-        let $PATH=$PATH.';C:/pdev/bin'
-    endif
-
     let s:vimfiles=$VIM."\\vimfiles"
     if isdirectory( s:vimfiles ) 
         let $HOME=s:vimfiles
@@ -91,7 +87,6 @@ else
     set directory=/tmp
     set undodir=/tmp
 endif
-set makeef=errorz
 
 set nowrap          " don't wrap by default
 set tabstop=4       " Tabstops are 4 spaces
