@@ -21,6 +21,7 @@ Plugin 'tpope/vim-fugitive'
 "Plugin 'mattn/gist-vim'
 "Plugin 'scrooloose/nerdcommenter'
 Plugin 'hrp/EnhancedCommentify'
+Plugin 'tacahiroy/ctrlp-funky'
 "Plugin 'godlygeek/tabular'
 if executable('ctags')
     Plugin 'majutsushi/tagbar'
