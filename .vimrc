@@ -496,6 +496,7 @@ if has( "autocmd" )
         au BufEnter             *.ahk           map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
         au BufEnter             *.coffee        map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
         au BufWritePost         [^_]*.scss      :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.g:sep.expand('%:t:r').'.css'))
+        au BufEnter             *.jade          set tabstop=2 shiftwidth=2 expandtab
     augroup END
     au FocusLost * :wa
 
