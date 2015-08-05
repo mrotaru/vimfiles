@@ -172,7 +172,7 @@ imap <S-Enter> <Esc>A;<Enter>
 "nmap <silent> ,p "+gP
 
 " need an easy way to paste from global clipboard
-imap <silent> <C-V><C-V> <Esc>"+gp
+imap <silent> <C-V><C-V> <Esc>"+gP
 
 " cd to the directory containing the file in the buffer
 nmap <silent> ,cd :lcd %:h<CR>
@@ -496,7 +496,7 @@ if has( "autocmd" )
         au BufEnter             *.ahk           map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
         au BufEnter             *.coffee        map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
         au BufWritePost         [^_]*.scss      :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.g:sep.expand('%:t:r').'.css'))
-        au BufEnter             *.jade          set tabstop=2 shiftwidth=2 expandtab
+        au BufEnter             *.jade,*.js     set tabstop=2 shiftwidth=2 expandtab
     augroup END
     au FocusLost * :wa
 

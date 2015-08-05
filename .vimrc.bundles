@@ -12,6 +12,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'matchit.zip'
+Plugin 'mhinz/vim-startify'
 
 " General Programming
 " -------------------
@@ -66,7 +67,7 @@ Plugin 'mattn/emmet-vim'
 
 " Misc
 " ----
-Plugin 'plasticboy/vim-markdown'
+Plugin 'tpope/vim-markdown'
 Plugin 'digitaltoad/vim-jade'
 "Plugin 'spf13/vim-preview'
 "Plugin 'tpope/vim-cucumber'
