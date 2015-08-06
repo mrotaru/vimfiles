@@ -431,11 +431,6 @@ let g:localvimrc_sandbox = 0 "local vimrcs are of little use in sandbox mode
 "-----------------------------------------------------------------------------
 let g:errormarker_disablemappings = 1 "errormarker: no mappings
 
-"-----------------------------------------------------------------------------
-" MRU Plugin Settings
-"-----------------------------------------------------------------------------
-" strangely, cannot map <C-M>, bc. will open MRU whenever I press Enter
-map <leader>f :MRU<CR>
 
 "-----------------------------------------------------------------------------
 " zencoding plugin stuff
@@ -457,8 +452,17 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 " }}}
 
 "-----------------------------------------------------------------------------
+" Startify Settings {{{
+"-----------------------------------------------------------------------------
+let g:startify_bookmarks = [ 'C:/notes/workflow.md', 'C:/notes/work/tc/2015-W32.md', 'C:/notes/todos/2015-32.md']
+"}}}
+
+"-----------------------------------------------------------------------------
 " Other Plungins {{{
 "-----------------------------------------------------------------------------
+
+map <leader>f :CtrlPMRUFiles<CR>
+
 let g:DisableAutoPHPFolding = 1
 if WINDOWS()
     let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
