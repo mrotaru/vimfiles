@@ -385,8 +385,8 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 "" neosnippet mappings
 "" Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -454,7 +454,12 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 "-----------------------------------------------------------------------------
 " Startify Settings {{{
 "-----------------------------------------------------------------------------
-let g:startify_bookmarks = [ 'C:/notes/workflow.md', 'C:/notes/work/tc/2015-W32.md', 'C:/notes/todos/2015-32.md']
+let g:startify_bookmarks = [
+            \'C:/notes/workflow.md',
+            \'C:/notes/work/tc/2015-W35.md',
+            \'C:/notes/todos/2015-W35.md',
+            \'C:/code/habitg/NOTES.md'
+            \]
 "}}}
 
 "-----------------------------------------------------------------------------
@@ -478,6 +483,22 @@ let coffee_make_options = ''
 let g:asciidoc_txt_force = 1
 let g:asciidoc_common_force = 1 " }}}
 
+function! ColorTodo() abort
+    syntax keyword todoOk √
+    syntax keyword todoFailed ×
+    highlight todoOk guifg=green
+    highlight todoFailed guifg=red
+endfunction
+
+
+"-----------------------------------------------------------------------------
+" Digraphs
+"-----------------------------------------------------------------------------
+digraph vv 8730 
+digraph xx 215
+digraph oo 9675 
+
+
 "-----------------------------------------------------------------------------
 " Auto commands {{{
 "-----------------------------------------------------------------------------
@@ -493,6 +514,7 @@ if has( "autocmd" )
 
     augroup misc
         au!
+        au BufEnter             *.md            set digraph | call ColorTodo()
         au BufRead,BufNewFile   *.md            set filetype=markdown
         au BufRead,BufNewFile   *.pp            set filetype=puppet
         au BufEnter             *.py,wscript    set foldmethod=marker
@@ -515,7 +537,8 @@ endif
 if has("gui_running")
 "    let g:netrw_silent= 1
     if WINDOWS()
-        set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+"        set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+        set guifont=Consolas:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
     endif
     set background=light
     colorscheme jellybeans
