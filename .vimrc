@@ -4,9 +4,8 @@
 
 set nocompatible
 
-"-----------------------------------------------------------------------------
 " Detect OS
-"-----------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 silent function! WINDOWS()
     return (has('win16') || has('win32') || has('win64'))
 endfunction
@@ -17,38 +16,35 @@ silent function! LINUX()
     return has('unix') && !has('macunix') && !has('win32unix')
 endfunction
 
-"-----------------------------------------------------------------------------
-" pdev stuff {{{
-"-----------------------------------------------------------------------------
+" On Windows, use $VIM\vimfiles; on Linux: $HOME\vimfiles
+" ------------------------------------------------------------------------------
 if WINDOWS()
     let s:vimfiles=$VIM."\\vimfiles"
     if isdirectory( s:vimfiles ) 
-        let $HOME=s:vimfiles
         let $MYVIMRC=s:vimfiles.'\.vimrc'
         let &runtimepath=&runtimepath.",".s:vimfiles
         let &runtimepath=&runtimepath.",".s:vimfiles.'\bundle\vundle'
     else
         echo "Warning: cannot find vimfiles, ".s:vimfiles." is not a folder."
     endif
-
-else " most likely Linux
+else " Linux
     let s:vimfiles=expand("$HOME").'/vimfiles'
     if isdirectory( s:vimfiles )
         let &runtimepath=&runtimepath.",".s:vimfiles
         let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/vundle'
     endif
 endif
-"}}}
 
+" load additional functions
+" ------------------------------------------------------------------------------
 if filereadable(expand(s:vimfiles."/vimrclib.vim"))
     exec "source ".s:vimfiles."/vimrclib.vim"
 endif
 
-" set globals pointing to 'bundle' folder and plugin_data {{{
+" set globals pointing to 'bundle' folder and plugin_data
 "-----------------------------------------------------------------------------
 let g:plugin_data = s:vimfiles . vimrclib#UnixToWin('\plugin_data')
 let g:plugins_folder = s:vimfiles . vimrclib#UnixToWin('\bundle')
-" }}}
 
 if exists("$CODE")
     cd $CODE
@@ -57,15 +53,12 @@ endif
 filetype off 
 autocmd!
 
-"-----------------------------------------------------------------------------
-" Plugins {{{
+" Bundles
 "-----------------------------------------------------------------------------
 if filereadable(expand(s:vimfiles."/.vimrc.bundles"))
     exec "source ".s:vimfiles."/.vimrc.bundles"
 endif
-" }}}
 
-"-----------------------------------------------------------------------------
 " Settings {{{
 "-----------------------------------------------------------------------------
 
@@ -94,7 +87,7 @@ set shiftwidth=4
 set wrapscan        " set the search scan to wrap lines
 set ignorecase
 set smartcase
-"set shellslash
+set shellslash
 set ch=2            " Make command line two lines high
 set vb              " set visual bell
 set backspace=2     " Allow backspacing over indent, eol, and the start of an insert
@@ -129,8 +122,6 @@ set key=                " Disable encryption (:X)
 set wildmenu            " Make the command-line completion better
 set complete=.,w,b,t,i  " Same as default except 'u' option is removed
 set showfulltag         " When completing by tag, show the whole tag, not just the function name
-"set textwidth=120
-"set fillchars=stlnc:\ ,vert:┃,fold:-,diff:- " get rid of the characters in window separators
 set expandtab           " Turn tabs into spaces
 set diffopt+=iwhite     " Add ignorance of whitespace to diff
 set hlsearch            " Enable search highlighting
@@ -146,7 +137,6 @@ set modeline            " enable modeline
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-"-----------------------------------------------------------------------------
 " KEYBOARD MAPPINGS {{{
 "-----------------------------------------------------------------------------
 
@@ -156,7 +146,6 @@ nnoremap Y y$
 let mapleader = ","
 nmap mk :make<CR>
 
-" compiling
 nmap <silent> <F11> :cprevious<CR>
 nmap <silent> <F12> :cnext<CR>
 
@@ -165,7 +154,6 @@ nmap <silent> <S-Left> :bprevious<CR>
 
 imap <silent> jj <Esc>
 imap jk <Esc>:
-imap <S-Enter> <Esc>A;<Enter>
 
 " Toggle paste mode
 "nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
@@ -516,7 +504,7 @@ if has( "autocmd" )
 
     augroup misc
         au!
-        au BufEnter             *.md            set digraph | call ColorTodo()
+        au BufEnter             *.md            set digraph | call ColorTodo() | set textwidth=80
         au BufRead,BufNewFile   *.md            set filetype=markdown
         au BufRead,BufNewFile   *.pp            set filetype=puppet
         au BufEnter             *.py,wscript    set foldmethod=marker
