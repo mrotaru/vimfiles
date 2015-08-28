@@ -484,10 +484,12 @@ let g:asciidoc_txt_force = 1
 let g:asciidoc_common_force = 1 " }}}
 
 function! ColorTodo() abort
-    syntax keyword todoOk √
-    syntax keyword todoFailed ×
+    syntax match todoOk "√"
+    syntax match todoFailed "×"
+    syntax match todoProgress "●"
     highlight todoOk guifg=green
     highlight todoFailed guifg=red
+    highlight todoProgress guifg=yellow
 endfunction
 
 
@@ -496,7 +498,7 @@ endfunction
 "-----------------------------------------------------------------------------
 digraph vv 8730 
 digraph xx 215
-digraph oo 9675 
+digraph oo 9679 
 
 
 "-----------------------------------------------------------------------------
