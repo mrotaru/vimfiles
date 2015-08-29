@@ -414,18 +414,6 @@ let g:localvimrc_ask = 0 "automatically source local vimrc's
 let g:localvimrc_sandbox = 0 "local vimrcs are of little use in sandbox mode
 " }}}
 
-"-----------------------------------------------------------------------------
-" ErrorMarker Plugin Settings
-"-----------------------------------------------------------------------------
-let g:errormarker_disablemappings = 1 "errormarker: no mappings
-
-
-"-----------------------------------------------------------------------------
-" zencoding plugin stuff
-"-----------------------------------------------------------------------------
-let g:user_zen_leader_key = '<c-l>'
-
-"-----------------------------------------------------------------------------
 " FSwitch Settings {{{
 "-----------------------------------------------------------------------------
 nmap <silent> ,of :FSHere<CR>
@@ -439,8 +427,7 @@ nmap <silent> ,oj :FSBelow<CR>
 nmap <silent> ,oJ :FSSplitBelow<CR>
 " }}}
 
-"-----------------------------------------------------------------------------
-" Startify Settings {{{
+" Startify Settings
 "-----------------------------------------------------------------------------
 let g:startify_bookmarks = [
             \'C:/notes/workflow.md',
@@ -448,20 +435,12 @@ let g:startify_bookmarks = [
             \'C:/notes/todos/2015-W35.md',
             \'C:/code/habitg/NOTES.md'
             \]
-"}}}
 
-"-----------------------------------------------------------------------------
 " Other Plungins {{{
 "-----------------------------------------------------------------------------
-
+let g:errormarker_disablemappings = 1 "errormarker: no mappings
+let g:user_zen_leader_key = '<c-l>' " zencoding
 map <leader>f :CtrlPMRUFiles<CR>
-
-let g:DisableAutoPHPFolding = 1
-if WINDOWS()
-    let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
-else
-    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-endif
 
 let g:marvim_store = g:plugin_data . g:sep . 'marvim'
 let java_highlight_all=1
@@ -471,6 +450,18 @@ let coffee_make_options = ''
 let g:asciidoc_txt_force = 1
 let g:asciidoc_common_force = 1 " }}}
 
+" Ack
+"-----------------------------------------------------------------------------
+let g:DisableAutoPHPFolding = 1
+if WINDOWS()
+    let g:ackprg="perl C:/pdev/bin/ack -H --nocolor --nogroup --column"
+else
+    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+endif
+
+
+" Color todo markers
+"-----------------------------------------------------------------------------
 function! ColorTodo() abort
     syntax match todoOk "√"
     syntax match todoFailed "×"
@@ -480,16 +471,12 @@ function! ColorTodo() abort
     highlight todoProgress guifg=yellow
 endfunction
 
-
-"-----------------------------------------------------------------------------
 " Digraphs
 "-----------------------------------------------------------------------------
 digraph vv 8730 
 digraph xx 215
 digraph oo 9679 
 
-
-"-----------------------------------------------------------------------------
 " Auto commands {{{
 "-----------------------------------------------------------------------------
 if has( "autocmd" )
@@ -522,14 +509,12 @@ if has( "autocmd" )
 endif
 "}}}
 
-"-----------------------------------------------------------------------------
 " Set up the window colors and size {{{
 "-----------------------------------------------------------------------------
 if has("gui_running")
 "    let g:netrw_silent= 1
     if WINDOWS()
-"        set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-        set guifont=Consolas:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+        set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
     endif
     set background=light
     colorscheme jellybeans
