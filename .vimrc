@@ -431,8 +431,8 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 "-----------------------------------------------------------------------------
 let g:startify_bookmarks = [
             \'C:/notes/workflow.md',
-            \'C:/notes/work/tc/2015-W35.md',
-            \'C:/notes/todos/2015-W35.md',
+            \'C:/notes/work/tc/2015-W36.md',
+            \'C:/notes/todos/2015-W36.md',
             \'C:/code/habitg/NOTES.md'
             \]
 
