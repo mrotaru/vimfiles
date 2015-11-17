@@ -68,7 +68,7 @@ filetype plugin on
 filetype indent on
 
 " ignore me some filez
-set wildignore=*.lnk,*.o
+set wildignore=*.lnk,*.o,**/node_modules
 
 " set vim to store backups in a certain directory to avoid clutter
 if has("win32")
@@ -431,9 +431,7 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 "-----------------------------------------------------------------------------
 let g:startify_bookmarks = [
             \'C:/notes/workflow.md',
-            \'C:/notes/work/tc/2015-W36.md',
-            \'C:/notes/todos/2015-W36.md',
-            \'C:/code/habitg/NOTES.md'
+            \'C:/code/thortful/thortful-web/src',
             \]
 
 " Other Plungins {{{
@@ -498,7 +496,6 @@ if has( "autocmd" )
         au BufEnter             *.java          map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
         au BufEnter             *.ahk           map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
         au BufEnter             *.coffee        map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
-        au BufWritePost         [^_]*.scss      :execute('!scss --sourcemap --trace '.PathToPathname(expand('%:p')).' '.PathToPathname(TrimDirs(expand('%:p'),2).'css'.g:sep.expand('%:t:r').'.css'))
         au BufEnter             *.jade,*.js     set tabstop=2 shiftwidth=2 expandtab
         au BufEnter             *.jade          map <F5> :w<CR>:execute('silent !jade --pretty ').expand('%:p')<CR>
     augroup END
