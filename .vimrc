@@ -67,8 +67,10 @@ filetype on
 filetype plugin on
 filetype indent on
 
+set autoread
+
 " ignore me some filez
-set wildignore=*.lnk,*.o,**/node_modules
+set wildignore=*.lnk,*.o,**/node_modules,**/dist
 
 " set vim to store backups in a certain directory to avoid clutter
 if has("win32")
