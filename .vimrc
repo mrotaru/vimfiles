@@ -428,8 +428,10 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 " Startify Settings
 "-----------------------------------------------------------------------------
 let g:startify_bookmarks = [
-            \'C:/notes/workflow.md',
+            \'C:/users/Mihai/notes/workflow.md',
             \'C:/code/thortful/thortful-web/src',
+            \'C:/users/Mihai/AutoHotkey.ahk',
+            \'C:/users/Mihai/.bash_aliases',
             \]
 
 " Other Plungins {{{
@@ -437,6 +439,7 @@ let g:startify_bookmarks = [
 let g:errormarker_disablemappings = 1 "errormarker: no mappings
 let g:user_zen_leader_key = '<c-l>' " zencoding
 map <leader>f :CtrlPMRUFiles<CR>
+let g:ctrlp_switch_buffer = 'e'
 
 let g:marvim_store = g:plugin_data . g:sep . 'marvim'
 let java_highlight_all=1
@@ -507,8 +510,8 @@ if has( "autocmd" )
         au BufEnter             *.py,wscript    set foldmethod=marker
         au BufEnter             *.java          map <F5> :execute('!javac ').expand('%:p')<CR> :execute('!java -cp '. expand('%:p:h') . ' ' . expand('%:t:r'))<CR>
         au BufEnter             *.ahk           map <F5> :execute('silent !C:\pdev\ahk\AutoHotkey /force ').expand('%:p')<CR>
-        au BufEnter             *.coffee        map <F5> :w<CR>:CoffeeMake<CR>:CoffeeRun<CR><CR>
         au BufEnter             *.jade,*.js     set tabstop=2 shiftwidth=2 expandtab
+        au BufEnter             *.js            command! Snippets vsplit $VIMRUNTIME/vimfiles/plugin_data/snipmate/javascript.snippets
         au BufEnter             *.jade          map <F5> :w<CR>:execute('silent !jade --pretty ').expand('%:p')<CR>
     augroup END
     au FocusLost * :wa
