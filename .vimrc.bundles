@@ -13,10 +13,13 @@ Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'matchit.zip'
 Plugin 'mhinz/vim-startify'
+Plugin 'mileszs/ack.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'sjl/badwolf'
 
 " General Programming
 " -------------------
-"Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'mattn/webapi-vim'
 "Plugin 'mattn/gist-vim'

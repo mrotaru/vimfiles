@@ -146,16 +146,15 @@ autocmd QuickFixCmdPost    l* nested lwindow
 nnoremap Y y$
 
 let mapleader = ","
-nmap mk :make<CR>
-
+nmap // :Ack 
 nmap <silent> <F11> :cprevious<CR>
 nmap <silent> <F12> :cnext<CR>
-
 nmap <silent> <S-Right> :bnext<CR>
 nmap <silent> <S-Left> :bprevious<CR>
-
 imap <silent> jj <Esc>
 imap jk <Esc>:
+
+cabbrev h vert h
 
 " Toggle paste mode
 "nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
@@ -391,6 +390,7 @@ endif
 let g:snippets_dir  =       s:vimfiles . vimrclib#UnixToWin('/bundle/vim-snippets/snippets')
 let g:snippets_dir .= ',' . s:vimfiles . vimrclib#UnixToWin('/bundle/vim-snippets/snippets/javascript')
 let g:snippets_dir .= ',' . g:plugin_data . vimrclib#UnixToWin('/snipmate')
+" }}} Neosnippet
 
 " Align plugin stuff
 "-----------------------------------------------------------------------------
@@ -455,6 +455,20 @@ else
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 endif
 
+" Syntastic
+"-----------------------------------------------------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_enable_signs = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_javascript_eslint_exec="c:/Users/Mihai/AppData/Roaming/npm/eslint.cmd"
+let g:syntastic_javascript_eslint_exec="eslint"
+let g:syntastic_javascript_eslint_args="--config='~/.eslintrc'"
+
 
 " Color todo markers
 "-----------------------------------------------------------------------------
@@ -511,8 +525,8 @@ if has("gui_running")
     if WINDOWS()
         set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
     endif
-    set background=light
-    colorscheme jellybeans
+    set background=dark
+    colorscheme gruvbox
     if !exists("g:vimrcloaded")
         winpos 0 0
         if ! &diff
