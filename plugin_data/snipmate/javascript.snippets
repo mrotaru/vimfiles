@@ -1,6 +1,96 @@
+snippet olog
+    console.log("$1", angular.merge({}, ${1:obj}));
+
 # Functino start log
 snippet fslog
     console.group("${1} %s",${2});
 # Function end log
 snippet felog
     console.groupEnd();
+
+snippet ng-ctrl
+    'use strict';
+    
+    angular
+      .module("app")
+      .controller("${1:name}", $1);
+    
+    $1.$inject = ["${2:}"];
+
+    function $1($2) {
+      var vm = this;
+
+      activate();
+
+      function activate() {
+        ${3}
+      }
+    }
+
+snippet ng-svc
+    'use strict';
+    
+    angular
+      .module("app")
+      .factory("${1:name}", $1);
+    
+    $1.$inject = ["${2:}"];
+
+    function $1($2) {
+      var service = {
+        ${3:serviceFunction}: $3
+      }
+      init();
+      return service;
+      
+      function init() {
+        ${4}
+      }
+
+      function $3() {
+        ${5}
+      }
+    }
+
+snippet ng-mod
+    'use strict';
+    
+    angular
+      .module("${1:app}", [${2}])
+
+snippet ng-prov
+  $provide.provider("${1:name}", function(){
+    this.$get = function() {
+      var ${2:foo} = ${3:null}
+      return {
+        $2: $2
+      }
+    };
+  });
+
+snippet e2e-test-suite
+    describe('${1:suite}', function() {
+      this.timeout(config.testTimeout);
+        
+      before(function() {
+        return client
+          .init()
+          .login(adminUser);
+      });
+
+      after(function() {
+        return client.end();
+      });
+
+      it('should ${2:test}', function() {
+        return client
+          .url(baseUrl + '${3:url}')
+      });
+        
+    });
+
+snippet e2e-test
+   it('should ${2:test}', function() {
+     return client
+       .url(baseUrl + '${3:url}')
+   });
