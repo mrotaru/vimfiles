@@ -19,7 +19,7 @@ endfunction
 " On Windows, use $VIM\vimfiles; on Linux: $HOME\vimfiles
 " ------------------------------------------------------------------------------
 if WINDOWS()
-    let s:vimfiles=$VIM."\\vimfiles"
+    let s:vimfiles=$VIMRUNTIME."\\vimfiles"
     if isdirectory( s:vimfiles ) 
         let $MYVIMRC=s:vimfiles.'\.vimrc'
         let &runtimepath=&runtimepath.",".s:vimfiles
@@ -305,17 +305,13 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which
 set foldmethod=marker " detect triple-{ style fold markers
 " }}}
 
-" Enable neosnippet snipmate compatibility mode
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+" Neosnippet {{{
+" ----------
+let g:neosnippet#enable_snipmate_compatibility = 1 " Enable neosnippet snipmate compatibility mode
+let g:acp_enableAtStartup = 0 " Disable AutoComplPop.
+let g:neocomplete#enable_at_startup = 1 " Use neocomplete.
+let g:neocomplete#enable_smart_case = 1 " Use smartcase.
+let g:neocomplete#sources#syntax#min_keyword_length = 3 " Set minimum syntax keyword length.
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
