@@ -60,6 +60,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'briancollins/vim-jst'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'leafgarland/typescript-vim'
 
 " HTML
 " ----

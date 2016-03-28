@@ -144,6 +144,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
+nnoremap <F4> :Startify<CR>
+nnoremap ,ew :exec ":e ~/notes/todos/" . strftime("%Y-W%W.md") <CR>
 
 let mapleader = ","
 nmap // :Ack 
@@ -428,7 +430,8 @@ nmap <silent> ,oJ :FSSplitBelow<CR>
 " Startify Settings
 "-----------------------------------------------------------------------------
 let g:startify_bookmarks = [
-            \'C:/users/Mihai/notes/workflow.md',
+            \'C:/notes/workflow.md',
+            \'C:/notes/reading-list.md',
             \'C:/code/thortful/thortful-web/src',
             \'C:/users/Mihai/AutoHotkey.ahk',
             \'C:/users/Mihai/.bash_aliases',
