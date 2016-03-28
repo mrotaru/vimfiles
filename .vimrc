@@ -31,7 +31,7 @@ else " Linux
     let s:vimfiles=expand("$HOME").'/vimfiles'
     if isdirectory( s:vimfiles )
         let &runtimepath=&runtimepath.",".s:vimfiles
-        let &runtimepath=&runtimepath.",".expand("$HOME").s:vimfiles.'/bundle/vundle'
+        let &runtimepath=&runtimepath.",".s:vimfiles.'/bundle/vundle'
     endif
 endif
 
