@@ -43,8 +43,8 @@ endif
 
 " set globals pointing to 'bundle' folder and plugin_data
 "-----------------------------------------------------------------------------
-let g:plugin_data = s:vimfiles . vimrclib#UnixToWin('\plugin_data')
-let g:plugins_folder = s:vimfiles . vimrclib#UnixToWin('\bundle')
+let g:plugin_data = s:vimfiles . vimrclib#UnixToWin('/plugin_data')
+let g:plugins_folder = s:vimfiles . vimrclib#UnixToWin('/bundle')
 
 if exists("$CODE")
     cd $CODE
@@ -523,6 +523,9 @@ if has( "autocmd" )
     au BufReadPost quickfix nnoremap <buffer> o <CR>
 endif
 "}}}
+"
+
+colorscheme industry
 
 " Set up the window colors and size {{{
 "-----------------------------------------------------------------------------
@@ -532,7 +535,6 @@ if has("gui_running")
         set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
     endif
     set background=dark
-    colorscheme gruvbox
     if !exists("g:vimrcloaded")
         winpos 0 0
         if ! &diff
