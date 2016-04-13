@@ -72,16 +72,10 @@ set autoread
 " ignore me some filez
 set wildignore=*.lnk,*.o,**/node_modules,**/dist
 
-" set vim to store backups in a certain directory to avoid clutter
-if has("win32")
-    set backupdir=$TMP
-    set directory=$TMP
-    set undodir=$TMP
-else
-    set backupdir=/tmp
-    set directory=/tmp
-    set undodir=/tmp
-endif
+" no backups or swapfiles
+set nobackup
+set nowritebackup
+set noswapfile
 
 set nowrap          " don't wrap by default
 set tabstop=4       " Tabstops are 4 spaces
