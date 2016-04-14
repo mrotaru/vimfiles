@@ -77,6 +77,13 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" undo
+set undofile
+if has("win32")
+    set undodir=$TMP		
+else		
+    set undodir=/tmp		
+
 set nowrap          " don't wrap by default
 set tabstop=4       " Tabstops are 4 spaces
 set shiftwidth=4
@@ -90,7 +97,6 @@ set backspace=2     " Allow backspacing over indent, eol, and the start of an in
 set hidden          " Make sure that unsaved buffers that are to be put in the background are
                     " allowed to go in there (ie. the "must save first" error doesn't come up)
 set ruler
-set undofile
 set gdefault        " regular expressions have /g by default
 set laststatus=2    " tell VIM to always put a status line in, even if there is only one window
 set lazyredraw
