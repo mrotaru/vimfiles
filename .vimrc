@@ -83,6 +83,7 @@ if has("win32")
     set undodir=$TMP		
 else		
     set undodir=/tmp		
+endif
 
 set nowrap          " don't wrap by default
 set tabstop=4       " Tabstops are 4 spaces
