@@ -4,8 +4,8 @@
 call vundle#begin(g:plugins_folder)
 Plugin 'gmarik/vundle'
 
-" Vundle bundles {{{
-"-----------------------------------------------------------------------------
+" General
+" -------
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'scrooloose/nerdtree'
@@ -14,11 +14,6 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'matchit.zip'
 Plugin 'mhinz/vim-startify'
 Plugin 'mileszs/ack.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'sjl/badwolf'
-
-" General Programming
-" -------------------
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'mattn/webapi-vim'
@@ -26,6 +21,7 @@ Plugin 'tpope/vim-fugitive'
 "Plugin 'scrooloose/nerdcommenter'
 Plugin 'hrp/EnhancedCommentify'
 Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'tpope/vim-obsession'
 "Plugin 'godlygeek/tabular'
 if executable('ctags')
     Plugin 'majutsushi/tagbar'
@@ -68,6 +64,7 @@ Plugin 'amirh/HTML-AutoCloseTag'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'skammer/vim-css-color'
 Plugin 'mattn/emmet-vim'
+Plugin 'cakebaker/scss-syntax.vim'
 
 " Misc
 " ----
@@ -77,13 +74,18 @@ Plugin 'digitaltoad/vim-jade'
 "Plugin 'tpope/vim-cucumber'
 "Plugin 'quentindecock/vim-cucumber-align-pipes'
 "Plugin 'Puppet-Syntax-Highlighting'
-Plugin 'cakebaker/scss-syntax.vim'
 
 Plugin 'vim-scripts/marvim'
 Plugin 'vim-scripts/localvimrc'
 Plugin 'mihai-rotaru/vim-status-quo'
 Plugin 'mihai-rotaru/vim-asciidoc-ft-syntax'
 Plugin 'rodjek/vim-puppet'
+
+" Color Schemes
+" -------------
+Plugin 'morhetz/gruvbox'
+Plugin 'sjl/badwolf'
+
 
 call vundle#end()
 " end vundle bundles }}}
