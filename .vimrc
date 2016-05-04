@@ -471,10 +471,12 @@ let g:syntastic_enable_signs = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 "let g:syntastic_javascript_eslint_exec="c:/Users/Mihai/AppData/Roaming/npm/eslint.cmd"
-let g:syntastic_javascript_eslint_exec="eslint"
-let g:syntastic_javascript_eslint_args="--config='~/.eslintrc'"
+"let g:syntastic_javascript_eslint_exec="eslint"
+"let g:syntastic_javascript_eslint_args="--config='~/.eslintrc'"
+let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_typescript_checkers = ['tsc']
 
 
 " Color todo markers
