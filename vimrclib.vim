@@ -51,7 +51,7 @@ endfunction
 " hex editing mode
 " http://www.kevssite.com/2009/04/21/using-vi-as-a-hex-editor/#comment-1045723510
 let $in_hex=0
-function vimrclib#HexMe()
+function! vimrclib#HexMe()
     set binary
     set noeol
     if $in_hex>0
