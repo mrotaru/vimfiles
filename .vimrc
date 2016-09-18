@@ -470,8 +470,8 @@ set statusline+=%*
 let g:syntastic_enable_signs = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_eslint_exec="c:/Users/Mihai/AppData/Roaming/npm/eslint.cmd"
 "let g:syntastic_javascript_eslint_exec="eslint"
 "let g:syntastic_javascript_eslint_args="--config='~/.eslintrc'"
@@ -510,7 +510,7 @@ if has( "autocmd" )
 
     augroup misc
         au!
-        au BufEnter             *.md            set digraph | call ColorTodo() | set textwidth=80
+"        au BufEnter             *.md            set digraph | call ColorTodo() | set textwidth=80
         au BufRead,BufNewFile   *.md            set filetype=markdown
         au BufRead,BufNewFile   *.pp            set filetype=puppet
         au BufEnter             *.py,wscript    set foldmethod=marker
