@@ -31,6 +31,16 @@ set wrapscan
 set ignorecase
 set smartcase
 set shellslash
+set backspace=indent,eol,start
+set hidden
+set ruler
+set gdefault
+set laststatus=2
+set lazyredraw
+set showcmd
+set showmode
+
+set mousehide
 
 if &t_Co > 2 || has("gui_running")
   syntax on
