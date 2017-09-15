@@ -1,4 +1,12 @@
 set nocompatible
+
+set termguicolors
+"set term=screen-256color
+set term=xterm
+set t_ut=
+"set term=xterm
+"set t_Co=256
+
 if has("win32")
 	behave mswin
 endif
@@ -42,9 +50,9 @@ set showcmd
 set showmode
 
 if &t_Co > 2 || has("gui_running")
-	set mousehide
+  set mousehide
   syntax on
-	colorscheme darkblue
-	set background=dark
-	set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+  colorscheme darkblue
+  set background=dark
+  set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
 endif
