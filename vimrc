@@ -56,6 +56,8 @@ set noerrorbells
 set visualbell
 set t_vb=
 
+set clipboard=unnamed
+
 let mapleader = ","
 nmap gh "xyaw:h <C-r>x<CR>
 autocmd FileType help nmap X :q<CR>
@@ -63,3 +65,18 @@ nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 nnoremap ,ew :exec ":e ~/Sync/notes/todos/" . strftime("%Y-W%W.md") <CR>
 nnoremap ,ej :exec ":e ~/Sync/notes/diary/" . strftime("%Y-%m-%d.md") <CR>
+
+"-------------------------------------------------------------------------------
+
+nnoremap <silent> <C-p> :Probe<CR>
+let g:probe_use_gitignore = 1
+let g:probe_use_wildignore = 1
+
+let g:ale_fixers = { 'javascript': ['prettier'], }
+let g:ale_linters = { 'javascript': ['prettier'], }
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma always --no-semi'
+"let g:ale_javascript_prettier_use_global = 1
+let g:ale_javascript_prettier_executable = '~/.npm-global/bin/prettier'
+
+packloadall
+silent! helptags ALL
