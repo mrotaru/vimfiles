@@ -1,1 +1,1 @@
-Vim Packages (git@github.com:torbiak/probe.git)
+Vim Packages (https://shapeshed.com/vim-packages/)
