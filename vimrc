@@ -72,11 +72,12 @@ nnoremap <silent> <C-p> :Probe<CR>
 let g:probe_use_gitignore = 1
 let g:probe_use_wildignore = 1
 
+let g:ale_sign_column_always = 1
+let g:ale_fix_on_save = 1
 let g:ale_fixers = { 'javascript': ['prettier'], }
-let g:ale_linters = { 'javascript': ['prettier'], }
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma always --no-semi'
-"let g:ale_javascript_prettier_use_global = 1
-let g:ale_javascript_prettier_executable = '~/.npm-global/bin/prettier'
+let g:ale_linters = { 'javascript': ['prettier'], } " doesn't seem to be working
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all --no-semi'
+let g:ale_javascript_prettier_use_global = 1
 
 packloadall
 silent! helptags ALL

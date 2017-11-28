@@ -1,1 +1,1 @@
-- ale not working
+- cannot lint with ale and prettier (only fix)
