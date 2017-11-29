@@ -45,6 +45,8 @@ set ruler
 set gdefault
 set lazyredraw
 
+set updatetime=250
+
 set ignorecase
 set smartcase
 set shellslash
@@ -68,7 +70,6 @@ nnoremap ,ej :exec ":e ~/Sync/notes/diary/" . strftime("%Y-%m-%d.md") <CR>
 
 "-------------------------------------------------------------------------------
 
-nnoremap <silent> <C-p> :Probe<CR>
 let g:probe_use_gitignore = 1
 let g:probe_use_wildignore = 1
 
