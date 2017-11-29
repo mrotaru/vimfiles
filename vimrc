@@ -38,6 +38,7 @@ endif
 set nowrap
 set tabstop=2
 set shiftwidth=2
+set expandtab
 set wrapscan
 set backspace=indent,eol,start
 set hidden
@@ -61,14 +62,14 @@ set t_vb=
 set clipboard=unnamed
 
 let mapleader = ","
-nmap gh "xyaw:h <C-r>x<CR>
+nmap <silent> ,cd :lcd %:h<CR>
+
 autocmd FileType help nmap X :q<CR>
+nmap ,hh viw<Esc>:h <C-r>*<CR>
 nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap <silent> ,sv :so $MYVIMRC<CR>
 nnoremap ,ew :exec ":e ~/Sync/notes/todos/" . strftime("%Y-W%W.md") <CR>
 nnoremap ,ej :exec ":e ~/Sync/notes/diary/" . strftime("%Y-%m-%d.md") <CR>
-
-"-------------------------------------------------------------------------------
 
 let g:probe_use_gitignore = 1
 let g:probe_use_wildignore = 1
