@@ -6,17 +6,19 @@ if has("win32")
 	behave mswin
 endif
 
-set termguicolors
 if !has("gui_running")
+  set termguicolors
 	set term=xterm
 endif
 set t_ut=
 if &t_Co > 2 || has("gui_running")
   set mousehide
   syntax on
-  colorscheme desert
-  set background=dark
   set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+  set guioptions -=T
+  set guioptions -=m
+  set background=dark
+  colorscheme darkblue
 endif
 
 set nrformats=
@@ -58,6 +60,12 @@ set showmode
 set noerrorbells
 set visualbell
 set t_vb=
+
+"paste
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
 
 set clipboard=unnamed
 
