@@ -47,6 +47,7 @@ set hidden
 set ruler
 set gdefault
 set lazyredraw
+set number
 
 set updatetime=250
 
