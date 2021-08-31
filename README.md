@@ -1,7 +1,11 @@
-# Vimfiles
+# vim & nvim config
 
-Starting from scratch, assuming vim 8.
+- basic vim configuration; vim 8 is assumed
+- `git clone git@github.com:mrotaru/vimfiles.git ~/.vim`
+- no plugin manager used by default - just built-in packages
+- to install plugins/packages: `source ~/.vim/install-plugins.bash`
 
-Inspiration:
-- Derek Wyatt's config: https://github.com/derekwyatt/vim-config
-- spf-13: https://github.com/spf13/spf13-vim
+## nvim
+- nvim 0.6+ is assumed
+- almost all configuration is in the vimrc - the nvim init essentially sources the vim config
+- `mkdir -p ~/.config/nvim && ln -s ~/.vim/init.vim ~/.config/nvim/init.vim`

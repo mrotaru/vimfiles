@@ -8,15 +8,19 @@ endif
 
 if !has("gui_running")
   set termguicolors
-	set term=xterm
+  if !has('nvim')
+    set term=xterm
+  endif
 endif
 set t_ut=
 if &t_Co > 2 || has("gui_running")
   set mousehide
   syntax on
-  set guifont=Envy_Code_R:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-  set guioptions -=T
-  set guioptions -=m
+  "set guifont=Noto\ Mono\ Regular:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+  if !has('nvim')
+    set guioptions -=T
+    set guioptions -=m
+  endif
   set background=dark
   colorscheme darkblue
 endif
@@ -62,7 +66,7 @@ set noerrorbells
 set visualbell
 set t_vb=
 
-"paste
+" copy/paste/cut in insert/visual modes
 vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
@@ -75,20 +79,19 @@ nmap <silent> ,cd :lcd %:h<CR>
 
 autocmd FileType help nmap X :q<CR>
 nmap ,hh viw<Esc>:h <C-r>*<CR>
-nmap <silent> ,ev :e $MYVIMRC<CR>
-nmap <silent> ,sv :so $MYVIMRC<CR>
-nnoremap ,ew :exec ":e ~/Sync/notes/todos/" . strftime("%Y-W%W.md") <CR>
-nnoremap ,ej :exec ":e ~/Sync/notes/diary/" . strftime("%Y-%m-%d.md") <CR>
+nmap <silent> ,ev :e ~/.vim/vimrc<CR>
+nmap <silent> ,sv :so ~/.vim/vimrc<CR>
+nnoremap ,ew :exec ":e ~/notes/todos/" . strftime("%Y-W%W.md") <CR>
 
 let g:probe_use_gitignore = 1
 let g:probe_use_wildignore = 1
 
 let g:ale_sign_column_always = 1
-let g:ale_fix_on_save = 1
-let g:ale_fixers = { 'javascript': ['prettier'], }
-let g:ale_linters = { 'javascript': ['prettier'], } " doesn't seem to be working
+"let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all --no-semi'
 let g:ale_javascript_prettier_use_global = 1
+let g:ale_fixers = { 'javascript': ['prettier'] }
+let g:ale_linters = { 'javascript': ['eslint'] }
 
 packloadall
 silent! helptags ALL
