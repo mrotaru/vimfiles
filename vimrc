@@ -3,7 +3,7 @@ filetype on
 filetype plugin on
 filetype indent on
 if has("win32")
-	behave mswin
+  behave mswin
 endif
 
 if !has("gui_running")
@@ -12,11 +12,12 @@ if !has("gui_running")
     set term=xterm
   endif
 endif
-set t_ut=
+set t_ut= " bg color in tmux fix - https://github.com/vim/vim/issues/804
 if &t_Co > 2 || has("gui_running")
+  set title titlestring=%t\ %y\ %m\ (%{expand('%:p')})
   set mousehide
   syntax on
-  set guifont=Envy\ Code\ \R\ 12,Noto\ Mono:h20,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+  "set guifont=Noto\ Mono:h12,Envy\ Code\ R\ 10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
   if !has('nvim')
     set guioptions -=T
     set guioptions -=m
@@ -70,12 +71,6 @@ set noerrorbells
 set visualbell
 set t_vb=
 
-" neovide config - hardware-accelerated neovim GUI wrapper
-let g:neovide_cursor_animation_length=0.05
-let g:neovide_cursor_trail_length=0.4
-let g:neovide_cursor_vfx_mode = "sonicboom"
-"let g:neovide_fullscreen=v:true " problem - win+2 doesn't give it focus - must alt-tab
-
 " copy/paste/cut in insert/visual modes
 vmap <C-c> "+yi
 vmap <C-x> "+c
@@ -95,15 +90,29 @@ autocmd FileType help wincmd L
 " frequent files
 nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>
 nmap <silent> <leader>sv :so ~/.vim/vimrc<CR>
-nnoremap <leader>ew :exec ":e ~/notes/todos/" . strftime("%Y-W%W.md") <CR>
+nmap <silent> <leader>en :e ~/.vim/init.vim<CR>
+nnoremap <leader>ew :exec ":e ~/Desktop/" . strftime("%Y-W%W.md") <CR>
+
+" navigate between next/previous locations
+nmap <silent> H <c-o>
+nmap <silent> L <c-i>
+
+" netrw - the built-in file browser
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+nmap <silent> <c-e> :Lexplore<CR>
+autocmd filetype netrw nmap <buffer> <Space> mf
 
 " switch between buffers
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
-" easymotion
-nmap <silent> <Space>j <Plug>(easymotion-w)
-nmap <silent> <Space>k <Plug>(easymotion-b)
+" easymotion - for all buffers, except netrw (file browser)
+autocmd BufRead,BufNewFile * if &ft != 'netrw' | execute('nmap <silent> <buffer> <Space>j <Plug>(easymotion-w)') | endif
+autocmd BufRead,BufNewFile * if &ft != 'netrw' | execute('nmap <silent> <buffer> <Space>k <Plug>(easymotion-b)') | endif
 
 " grepper (search in files)
 nmap <silent> <C-f> :Grepper<CR>
@@ -123,6 +132,9 @@ let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all --n
 let g:ale_javascript_prettier_use_global = 1
 let g:ale_fixers = { 'javascript': ['prettier'] }
 let g:ale_linters = { 'javascript': ['eslint'] }
+
+" file types
+autocmd BufNewFile,BufReadPost *.nim,*.nims,*.nimble setfiletype nim
 
 " packages (plugins)
 packloadall
