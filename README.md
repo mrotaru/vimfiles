@@ -1,11 +1,12 @@
 # vim & nvim config
 
-- basic vim configuration; vim 8 is assumed
-- `git clone git@github.com:mrotaru/vimfiles.git ~/.vim`
-- no plugin manager used by default - just built-in packages
-- to install plugins/packages: `source ~/.vim/install-plugins.bash`
+- basic vim/nvim configuration
 
-## nvim
-- nvim 0.6+ is assumed
-- almost all configuration is in the vimrc - the nvim init essentially sources the vim config
-- `mkdir -p ~/.config/nvim && ln -s ~/.vim/init.vim ~/.config/nvim/init.vim`
+## install
+- `git clone git@github.com:mrotaru/vimfiles.git ~/.vim`
+- uses vim's built-in `package` loader
+- to install plugins/packages: `source ~/.vim/install-plugins.bash`
+- settings and packages that are relevant to both `vim` and `nvim` are in `vimrc`
+- nvim-specific config and packages in `init.vim`
+- to load nvim config: `mkdir -p ~/.config/nvim && ln -s ~/.vim/init.vim ~/.config/nvim/init.vim`
+- very basic LSP integration - uses built-in API

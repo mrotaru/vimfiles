@@ -8,4 +8,3 @@ git clone https://github.com/airblade/vim-rooter.git ~/.vim/pack/common/start/ro
 
 # plugins specific to nvim
 git clone https://github.com/neovim/nvim-lspconfig.git ~/.vim/pack/nvim/opt/lspconfig
-git clone https://github.com/nvim-lua/completion-nvim.git ~/.vim/pack/nvim/opt/completion
