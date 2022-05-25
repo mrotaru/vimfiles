@@ -33,8 +33,8 @@ set nrformats=
 
 set wildcharm=<C-z>
 cnoremap <Right> <Space><BS><Right><C-z>
-cnoremap <Up> <C-p>
-cnoremap <Down> <C-n>
+cnoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
+cnoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 set wildignore=*.lnk,*.o,**/node_modules,**/dist
 set wildignorecase
 
@@ -76,9 +76,8 @@ set noerrorbells
 set visualbell
 set t_vb=
 
-" copy/paste/cut in insert/visual modes
-vmap <C-c> "+yi
-
+" copy/paste/cut
+vmap <C-c> "+y
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
@@ -95,8 +94,9 @@ imap jk <Esc>
 
 " help helpers
 autocmd FileType help nmap X :q<CR>
-nmap <leader>hh viw<Esc>:h <C-r>*<CR>
 autocmd FileType help wincmd L
+autocmd FileType help nmap <Enter> <C-]>
+autocmd FileType vim nnoremap <leader>hh vawy:h <C-r>0<CR>
 
 " frequent files
 nmap <silent> <leader>ev :e ~/.vim/vimrc<CR>

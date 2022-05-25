@@ -23,8 +23,8 @@ local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
   -- See `:help nvim_buf_set_keymap()` for more information
   vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true})
-  vim.api.nvim_buf_set_keymap(0, 'n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true})
-  vim.api.nvim_buf_set_keymap(0, 'n',  'gr', '<cmd> lua vim.lsp.buf.references()<CR>', {noremap = true})
+  vim.api.nvim_buf_set_keymap(0, 'n', '<Enter>', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true})
+  vim.api.nvim_buf_set_keymap(0, 'n',  '<S-Enter>', '<cmd> lua vim.lsp.buf.references()<CR>', {noremap = true})
   -- ... and other keymappings for LSP
 
   -- Use LSP as the handler for omnifunc.
