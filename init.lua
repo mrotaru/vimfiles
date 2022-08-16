@@ -1,0 +1,2 @@
+local mod = require('init')
+

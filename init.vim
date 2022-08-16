@@ -8,12 +8,8 @@ packadd lsp_signature.nvim
 
 set guifont=Noto\ Mono:h11
 
-" neovide config - hardware-accelerated neovim GUI wrapper
-"let g:neovide_cursor_animation_length=0.05
-"let g:neovide_cursor_trail_length=0.4
-"let g:neovide_cursor_vfx_mode = "sonicboom"
-"let g:neovide_remember_window_size = v:true
-"let g:neovide_fullscreen=v:true
+nmap <F8> :LspStop<CR>
+nmap <F9> :LspStart<CR>
 
 lua <<EOF
 local nvim_lsp = require('lspconfig')
@@ -65,16 +61,38 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'nimls', 'pylsp', 'tsserver' }
+local servers = { 'nimls', 'pylsp', 'tsserver', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
+    },
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importGranularity = "module",
+          importPrefix = "self",
+          },
+        cargo = {
+          loadOutDirsFromCheck = true
+          },
+        procMacro = {
+          enable = true
+          },
+        }
+      }
     }
+  end
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- Disable signs
+    signs = false,
+    --underline = false,
   }
-end
+)
 
 EOF
 
