@@ -3,8 +3,12 @@ set runtimepath+=~/.vim/after
 set runtimepath+=~/.vim/plugin
 let &packpath = &runtimepath . ',~/.vim/pack/nvim/opt'
 packadd lspconfig
-packadd nim
-packadd lsp_signature.nvim
+
+try
+  packadd nim " https://github.com/alaviss/nim.nvim
+  packadd lsp_signature.nvim " https://github.com/ray-x/lsp_signature.nvim
+catch
+endtry
 
 set guifont=Noto\ Mono:h11
 
@@ -74,17 +78,17 @@ for _, lsp in ipairs(servers) do
         assist = {
           importGranularity = "module",
           importPrefix = "self",
-          },
+        },
         cargo = {
           loadOutDirsFromCheck = true
-          },
+        },
         procMacro = {
           enable = true
-          },
-        }
+        },
       }
     }
-  end
+  }
+end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {

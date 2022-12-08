@@ -1,3 +1,4 @@
+echo "sourcing vimrc"
 set nocompatible
 filetype on
 filetype plugin on
@@ -5,6 +6,9 @@ filetype indent on
 if has("win32")
   behave mswin
 endif
+
+" Patch slate, a nice built-in colorscheme, to remove the garish red on white
+autocmd ColorScheme slate :hi clear PreProc | :hi def link PreProc Define
 
 if !has("gui_running")
   set termguicolors
@@ -90,6 +94,7 @@ nmap <silent> <leader>cd :lcd %:h<CR>
 " 1) not working: cnoremap <leader>q bp<bar>vsp<bar>bn<bar>bd
 " 2) from https://stackoverflow.com/a/19619038:
 nmap <leader>d :b#<bar>bd#<CR>
+
 imap jk <Esc>
 
 " help helpers
@@ -115,6 +120,14 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
   \,sm:block-blinkwait175-blinkoff150-blinkon175
 
+nmap <silent> S :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
 " netrw - the built-in file browser
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -132,12 +145,25 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 autocmd BufRead,BufNewFile * if &ft != 'netrw' | execute('nmap <silent> <buffer> <Space>j <Plug>(easymotion-w)') | endif
 autocmd BufRead,BufNewFile * if &ft != 'netrw' | execute('nmap <silent> <buffer> <Space>k <Plug>(easymotion-b)') | endif
 
+" substitute word under cursor (ref: https://stackoverflow.com/a/48657)
+nmap <leader>w :%s/\(<c-r>=expand("<cword>")<cr>\)/
+
 " grepper (search in files)
 nmap <silent> <C-f> :Grepper<CR>
 imap <silent> <C-f> <ESC>:Grepper<CR>
 let g:grepper = {}
+let g:grepper.highlight = 1
 let g:grepper.tools = [ 'rg', 'ag', 'ack', 'ack-grep', 'grep' ]
 let g:grepper.dir = 'repo,cwd'
+" when grepper buffer is shown/entered, map j/k to navigate up/down matches -
+" and press Enter/Esc to go back to normal mappings for j/k
+" see: https://vi.stackexchange.com/q/14065
+autocmd BufEnter * if &buftype == 'quickfix' | nnoremap <silent> j :cn<CR>
+autocmd BufEnter * if &buftype == 'quickfix' | nnoremap <silent> k :cp<CR>
+autocmd WinEnter,BufWinEnter quickfix nnoremap <silent> j :cn<CR>
+autocmd WinEnter,BufWinEnter quickfix nnoremap <silent> k :cp<CR>
+autocmd WinEnter,BufWinEnter quickfix nnoremap <silent> <Enter> :nunmap j<CR>:nunmap k<CR>
+autocmd WinEnter,BufWinEnter quickfix nnoremap <silent> <Esc> :nunmap j<CR>:nunmap k<CR>
 
 " probe (fuzzy file finder)
 nmap <silent> <C-p> :Probe<CR>
