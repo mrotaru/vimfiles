@@ -1,4 +1,3 @@
-echo "sourcing vimrc"
 set nocompatible
 filetype on
 filetype plugin on
@@ -8,7 +7,9 @@ if has("win32")
 endif
 
 " Patch slate, a nice built-in colorscheme, to remove the garish red on white
-autocmd ColorScheme slate :hi clear PreProc | :hi def link PreProc Define
+autocmd ColorScheme slate :hi clear PreProc | :hi def link PreProc Define 
+" change the horrible magenta bg for popup/floats/menus
+autocmd ColorScheme * :hi Pmenu ctermbg=black guibg=black
 
 if !has("gui_running")
   set termguicolors
@@ -36,7 +37,7 @@ endif
 set nrformats=
 
 set wildcharm=<C-z>
-cnoremap <Right> <Space><BS><Right><C-z>
+cnoremap <expr> <Right> pumvisible() ? "\<Space><BS><Right><C-z>" : "\<Right>"
 cnoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
 cnoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 set wildignore=*.lnk,*.o,**/node_modules,**/dist
@@ -66,6 +67,8 @@ set ruler
 set gdefault
 set lazyredraw
 set number
+set signcolumn=no
+set foldlevelstart=99
 
 set updatetime=250
 
@@ -85,7 +88,7 @@ vmap <C-c> "+y
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 
 " leader
 let mapleader = ";"
@@ -112,7 +115,7 @@ nnoremap <leader>ew :exec ":e ~/Desktop/" . strftime("%Y-W%W.md") <CR>
 " built-in terminal
 tnoremap <Esc> <C-\><C-n>
 
-" navigate between next/previous locations
+" navigate between next/previous locations (see jumplist)
 nmap <silent> H <c-o>
 nmap <silent> L <c-i>
 
@@ -133,20 +136,39 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
-let g:netrw_winsize = 25
+let g:netrw_winsize = -28
 nmap <silent> <c-e> :Lexplore<CR>
-autocmd filetype netrw nmap <buffer> <Space> mf
+"autocmd filetype netrw nmap <buffer> <Space> mf
+autocmd filetype netrw nmap <buffer> <Space> <cr>:wincmd W<cr>
+"autocmd filetype netrw nnoremap <cr> <cr>:wincmd W<cr>
 
-" switch between buffers
-nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
-nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+" commenting
+function! <SID>ToggleComment()
+  let re = '\v^(\s*)%[(\/\/)](\s*)(.*)$'
+  let line = getline(line('.'))
+  if line =~ re
+    let matches = matchlist(line, re)
+    let spaceBeforeComment = matches[1]
+    let commentString = matches[2]
+    let spaceAfterComment = matches[3]
+    let contents = matches[4]
+    if len(commentString)
+      call setline(line('.'), spaceBeforeComment . spaceAfterComment . contents)
+    else
+      call setline(line('.'), spaceBeforeComment . '//' . spaceAfterComment . contents)
+    endif
+  else
+    echo "line does not match (un)commment regex"
+  endif
+endfunc
+autocmd FileType javascript nnoremap <leader>cc :call <SID>ToggleComment()<CR>
 
 " easymotion - for all buffers, except netrw (file browser)
 autocmd BufRead,BufNewFile * if &ft != 'netrw' | execute('nmap <silent> <buffer> <Space>j <Plug>(easymotion-w)') | endif
 autocmd BufRead,BufNewFile * if &ft != 'netrw' | execute('nmap <silent> <buffer> <Space>k <Plug>(easymotion-b)') | endif
 
 " substitute word under cursor (ref: https://stackoverflow.com/a/48657)
-nmap <leader>w :%s/\(<c-r>=expand("<cword>")<cr>\)/
+nmap <leader>w :%s/\<\(<c-r>=expand("<cword>")<cr>\)/
 
 " grepper (search in files)
 nmap <silent> <C-f> :Grepper<CR>
