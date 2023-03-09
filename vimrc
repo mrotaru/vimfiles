@@ -42,6 +42,7 @@ cnoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
 cnoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 set wildignore=*.lnk,*.o,**/node_modules,**/dist
 set wildignorecase
+set completeopt=menuone,noinsert
 
 set fileformat=unix
 set fileformats=unix,dos
@@ -89,6 +90,8 @@ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 set clipboard=unnamed,unnamedplus
+set autoindent
+set smartindent
 
 " leader
 let mapleader = ";"
@@ -161,7 +164,7 @@ function! <SID>ToggleComment()
     echo "line does not match (un)commment regex"
   endif
 endfunc
-autocmd FileType javascript nnoremap <leader>cc :call <SID>ToggleComment()<CR>
+autocmd FileType javascript,typescript nnoremap <leader>cc :call <SID>ToggleComment()<CR>
 
 " easymotion - for all buffers, except netrw (file browser)
 autocmd BufRead,BufNewFile * if &ft != 'netrw' | execute('nmap <silent> <buffer> <Space>j <Plug>(easymotion-w)') | endif

@@ -104,7 +104,7 @@ EOF
 " completion
 " related: https://stackoverflow.com/q/35837990
 set completeopt+=menuone,noselect,noinsert " don't insert text automatically
-inoremap . .<C-x><C-o>
+inoremap <expr> . len(&omnifunc) ? ".\<C-x><C-o>" : "." 
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 
