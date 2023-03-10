@@ -69,6 +69,7 @@ set lazyredraw
 set number
 set signcolumn=no
 set foldlevelstart=99
+set completeopt=menu
 
 set updatetime=250
 

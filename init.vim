@@ -36,6 +36,8 @@ local on_attach = function(client, bufnr)
   --    See `:help formatexpr` for more information.
   vim.api.nvim_buf_set_option(0, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
+  -- vim.diagnostic.config({ virtual_text = false })
+
   -- For plugins with an `on_attach` callback, call them here. For example:
   -- require('completion').on_attach()
 
@@ -66,7 +68,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'nimls', 'pylsp', 'tsserver', 'rust_analyzer' }
+local servers = { 'nimls', 'pylsp', 'tsserver', 'rust_analyzer', 'reason_ls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
